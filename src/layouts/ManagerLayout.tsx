@@ -27,12 +27,14 @@ const ManagerLayout = ({ children }: LayoutPropsInterface) => {
       <SideBar isShow={showSideBar} />
       <div
         onClick={() => setShowSideBar(false)}
-        className={`transition-all ${showSideBar ? 'bg-opacity-20 visible' : 'bg-opacity-0 invisible'
-          } fixed top-0 left-0 w-full h-full bg-black  z-20 md:hidden`}
+        className={`transition-all ${
+          showSideBar ? 'bg-opacity-20 visible' : 'bg-opacity-0 invisible'
+        } fixed top-0 left-0 w-full h-full bg-black  z-20 md:hidden`}
       ></div>
       <div
-        className={`   ${showSideBar ? 'md:translate-x-[264px] md:w-[calc(100%-264px)]' : 'w-full'
-          } transition-all duration-500`}
+        className={`   ${
+          showSideBar ? 'md:translate-x-[264px] md:w-[calc(100%-264px)]' : 'w-full'
+        } transition-all duration-500`}
       >
         <TopBar onShow={() => setShowSideBar(!showSideBar)} />
         <div className=''>

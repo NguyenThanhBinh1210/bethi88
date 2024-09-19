@@ -10,8 +10,9 @@ const SideBar = ({ isShow }: { isShow: boolean }) => {
 
   return (
     <div
-      className={`${isShow ? '' : ' overflow-hidden opacity-0 invisible -translate-x-full '
-        } bg-white no-scrollbar border-r fixed z-40 left-0 overflow-auto h-screen  transition-all duration-500 py-4`}
+      className={`${
+        isShow ? '' : ' overflow-hidden opacity-0 invisible -translate-x-full '
+      } bg-white no-scrollbar border-r fixed z-40 left-0 overflow-auto h-screen  transition-all duration-500 py-4`}
     >
       <div className={`w-[264px] overflow-hidden transition-all duration-300`}>
         <div className='px-5'>
