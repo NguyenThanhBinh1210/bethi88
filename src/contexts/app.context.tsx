@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useState } from 'react'
 import { Profile } from '~/types/auth.type'
@@ -5,6 +6,8 @@ import { clearLS, getAccessTokenFromLS, getProfileFromLS } from '~/utils/auth'
 
 interface AppContextInterface {
   isAuthenticated: boolean
+  isDark: boolean
+  setDark?: any
   setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
   profile: Profile | null
   setProfile: React.Dispatch<React.SetStateAction<Profile | null>>
@@ -15,7 +18,9 @@ export const getInitialAppContext: () => AppContextInterface = () => ({
   setIsAuthenticated: () => null,
   profile: getProfileFromLS(),
   setProfile: () => null,
-  reset: () => null
+  reset: () => null,
+  isDark: false,
+  setDark: () => null
 })
 const initialAppContext = getInitialAppContext()
 
@@ -24,6 +29,7 @@ export const AppContext = createContext<AppContextInterface>(initialAppContext)
 export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(initialAppContext.isAuthenticated)
   const [profile, setProfile] = useState<Profile | null>(initialAppContext.profile)
+  const [isDark, setDark] = useState<boolean>(initialAppContext.isDark)
   const reset = () => {
     setIsAuthenticated(false)
     setProfile(null)
@@ -36,7 +42,9 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
         setIsAuthenticated,
         profile,
         setProfile,
-        reset
+        reset,
+        isDark,
+        setDark
       }}
     >
       {children}

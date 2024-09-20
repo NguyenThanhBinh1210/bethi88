@@ -1,89 +1,167 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// import { Accordion, AccordionHeader, AccordionBody } from '@material-tailwind/react'
-// import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import logo from '~/assets/images/avatar10.png'
-import { menuCMS } from '~/constants/renaral.const'
-const SideBar = ({ isShow }: { isShow: boolean }) => {
-  // const [open, setOpen] = useState(0)
-  // const handleOpen = (value: any) => setOpen(open === value ? 0 : value)
 
+import { Accordion, AccordionItem, Avatar, Button, Input } from '@nextui-org/react'
+import { Link } from 'react-router-dom'
+import { menuCMS } from '~/constants/renaral.const'
+import { Tabs, Tab } from '@nextui-org/react'
+const SideBar = ({ isShow }: { isShow: boolean }) => {
   return (
     <div
       className={`${
         isShow ? '' : ' overflow-hidden opacity-0 invisible -translate-x-full '
-      } bg-white no-scrollbar border-r fixed z-40 left-0 overflow-auto h-screen  transition-all duration-500 py-4`}
+      } bg-foreground-50 no-scrollbar border-r border-foreground-100 fixed z-40 left-0 overflow-auto h-screen  transition-all  py-4`}
     >
-      <div className={`w-[264px] overflow-hidden transition-all duration-300`}>
-        <div className='px-5'>
-          <img src={logo} alt='logo' loading='lazy' width={31} className='block mx-auto' />
-          <div className='text-center mt-4'>
-            <p className='font-bold'>Nguyễn Thanh Bình</p>
-            <p className='text-xs'>thanhbinh12369yt@gmail.com</p>
-            <p className='font-bold'>Admin</p>
-          </div>
-          <div className='p-2.5 py-1.5 rounded-full border border-gray-800 mt-6 mb-5'>
-            <input type='text' className='text-sm' placeholder='Tìm kiếm trong menu ' />
+      <div className={`w-[264px] overflow-hidden transition-all `}>
+        <div className='px-2 flex py-2 gap-x-4 items-center'>
+          <Avatar className='flex-shrink-0' isBordered src='https://i.pravatar.cc/150?u=a042581f4e29026024d' />
+          <div className=' uppercase'>
+            <p className='text-xs'> Bình</p>
+            <p className='text-xs'>IBETCOIN</p>
+            <p className='text-xs'>OTP: Disabled</p>
           </div>
         </div>
-        <div>
-          {menuCMS.map((item, index) => (
-            <div key={index}>
-              {item.path ? (
-                <Link to={`/seller/${item.path}`} className='flex px-5 justify-between items-center  py-2.5'>
-                  <div className='flex items-center gap-x-1.5'>
-                    {item.icon}
-                    <p className='text-sm'>{item.title}</p>
+        <div className=' px-2 flex w-full flex-col pt-3'>
+          <Tabs aria-label='Options'>
+            <Tab key='main' title='MAIN MENU' className='font-medium text-[13px]'>
+              <div>
+                {menuCMS.map((item, index) => (
+                  <div key={index}>
+                    {item.path ? (
+                      <Link to={`/seller/${item.path}`} className='flex px-2 justify-between items-center  py-2.5'>
+                        <div className='flex items-center gap-x-1.5'>
+                          {item.icon}
+                          <p className='text-sm uppercase'>{item.title}</p>
+                        </div>
+                        {item.title === 'Đơn hàng' && (
+                          <div className='text-white font-normal text-xs bg-black  w-5 h-5 rounded flex items-center justify-center'>
+                            5
+                          </div>
+                        )}
+                      </Link>
+                    ) : (
+                      <Accordion className=''>
+                        <AccordionItem
+                          className='!py-2'
+                          key='theme'
+                          aria-label='Theme'
+                          title={<div className='text-sm uppercase'>{item.title}</div>}
+                          startContent={item.icon}
+                        >
+                          <div className='space-y-2 pl-5'>
+                            {item.subMenu?.map((itemx, indexx) => (
+                              <Link className='block' key={indexx} to={itemx.path}>
+                                {itemx.title}
+                              </Link>
+                            ))}
+                          </div>
+                        </AccordionItem>
+                      </Accordion>
+                    )}
                   </div>
-                  {item.title === 'Đơn hàng' && (
-                    <div className='text-white font-normal text-xs bg-black  w-5 h-5 rounded flex items-center justify-center'>
-                      5
-                    </div>
-                  )}
-                </Link>
-              ) : (
-                // <Accordion
-                //   placeholder=''
-                //   className='px-5'
-                //   open={open === index + 1}
-                //   icon={
-                //     <div className='flex items-center gap-x-1'>
-                //       <Icon id={index + 1} open={open} />
-                //       {item.title === 'Các sản phẩm' && (
-                //         <div className='text-white font-normal text-xs bg-black  w-5 h-5 rounded flex items-center justify-center'>
-                //           0
-                //         </div>
-                //       )}
-                //     </div>
-                //   }
-                // >
-                //   <AccordionHeader className='py-2.5 border-b-0' placeholder='' onClick={() => handleOpen(index + 1)}>
-                //     <div className='flex items-center gap-x-2 text-black font-normal text-sm'>
-                //       {item.icon}
-                //       {item.title}
-                //     </div>
-                //   </AccordionHeader>
-                //   <AccordionBody className='p-0'>
-                //     <ul className='ml-4 text-gray-600 text-sm'>
-                //       {item.subMenu?.map((items, indexs) => (
-                //         <li className='py-1.5' key={indexs}>
-                //           <Link className='' to={`/seller${items.path}`}>
-                //             {items.title}
-                //           </Link>
-                //         </li>
-                //       ))}
-                //     </ul>
-                //   </AccordionBody>
-                // </Accordion>
-                'clm'
-              )}
-            </div>
-          ))}
+                ))}
+                <button className='flex px-2 w-full text-blue-600 gap-1.5 justify items-center  py-2.5'>
+                  {' '}
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    fill='none'
+                    viewBox='0 0 24 24'
+                    strokeWidth={1.5}
+                    stroke='currentColor'
+                    className='size-4'
+                  >
+                    <path
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      d='M8.625 9.75a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 0 1 .778-.332 48.294 48.294 0 0 0 5.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z'
+                    />
+                  </svg>
+                  CHATBOT
+                </button>
+              </div>
+              <div className='mt-2 border-t-foreground-200 border-t space-y-2 py-2'>
+                <Button
+                  variant='light'
+                  className='flex px-2 uppercase font-medium w-full gap-1.5 justify-start items-center  py-2.5'
+                >
+                  {' '}
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    fill='none'
+                    viewBox='0 0 24 24'
+                    strokeWidth={1.5}
+                    stroke='currentColor'
+                    className='size-4'
+                  >
+                    <path
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      d='M8.625 9.75a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 0 1 .778-.332 48.294 48.294 0 0 0 5.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z'
+                    />
+                  </svg>
+                  SECURITY
+                </Button>
+                <Button
+                  variant='light'
+                  className='flex px-2 uppercase font-medium w-full gap-1.5 justify-start items-center  py-2.5'
+                >
+                  {' '}
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    fill='none'
+                    viewBox='0 0 24 24'
+                    strokeWidth={1.5}
+                    stroke='currentColor'
+                    className='size-4'
+                  >
+                    <path
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      d='M8.625 9.75a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 0 1 .778-.332 48.294 48.294 0 0 0 5.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z'
+                    />
+                  </svg>
+                  Available Domains
+                </Button>
+              </div>
+            </Tab>
+            <Tab key='account' title='ACCOUNT INFO' className='font-medium text-[13px]'>
+              <Input
+                isClearable
+                radius='lg'
+                className='text-xs'
+                labelPlacement='outside'
+                placeholder='Username or First/Last Name'
+                startContent={
+                  <SearchIcon className='text-black/50 mb-0.5 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0' />
+                }
+              />
+            </Tab>
+          </Tabs>
         </div>
       </div>
     </div>
   )
 }
+export const SearchIcon = (props: any) => (
+  <svg
+    aria-hidden='true'
+    fill='none'
+    focusable='false'
+    height='1em'
+    role='presentation'
+    viewBox='0 0 24 24'
+    width='1em'
+    {...props}
+  >
+    <path
+      d='M11.5 21C16.7467 21 21 16.7467 21 11.5C21 6.25329 16.7467 2 11.5 2C6.25329 2 2 6.25329 2 11.5C2 16.7467 6.25329 21 11.5 21Z'
+      stroke='currentColor'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+      strokeWidth='2'
+    />
+    <path d='M22 22L20 20' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' />
+  </svg>
+)
 // function Icon({ id, open }: any) {
 //   return (
 //     <svg

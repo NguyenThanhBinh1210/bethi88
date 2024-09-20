@@ -32,14 +32,12 @@ const ManagerLayout = ({ children }: LayoutPropsInterface) => {
         } fixed top-0 left-0 w-full h-full bg-black  z-20 md:hidden`}
       ></div>
       <div
-        className={`   ${
-          showSideBar ? 'md:translate-x-[264px] md:w-[calc(100%-264px)]' : 'w-full'
-        } transition-all duration-500`}
+        className={`   ${showSideBar ? 'md:translate-x-[264px] md:w-[calc(100%-264px)]' : 'w-full'} transition-all `}
       >
         <TopBar onShow={() => setShowSideBar(!showSideBar)} />
         <div className=''>
           <div className='pt-7 pb-5 px-5  min-h-[calc(100vh-125.6px)]'>{children}</div>
-          <div className='border-t  text-sm text-center py-4'>© Our shop v20221012</div>
+          <div className='border-t  text-sm text-center py-4'>© Created by Catalina 2024</div>
         </div>
       </div>
     </div>

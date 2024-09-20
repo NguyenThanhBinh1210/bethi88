@@ -42,3 +42,7 @@ body {
     scrollbar-width: none;
   }
 }
+button.flex.py-4.w-full.h-full.gap-3.items-center.tap-highlight-transparent {
+  padding: 0 !important;
+  gap: 6px !important;
+}

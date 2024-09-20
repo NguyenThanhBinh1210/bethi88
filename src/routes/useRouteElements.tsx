@@ -7,7 +7,8 @@ import LoginLayout from '~/layouts/LoginLayout'
 import Home from '~/pages/Home'
 import { useContext } from 'react'
 // import ManagerLayout from '~/layouts/ManagerLayout'
-import HomeLayout from '~/layouts/HomeLayout'
+// import HomeLayout from '~/layouts/HomeLayout'
+import ManagerLayout from '~/layouts/ManagerLayout'
 
 const useRouteElements = () => {
   function ProtecedRoute() {
@@ -49,9 +50,9 @@ const useRouteElements = () => {
           path: '/',
           index: true,
           element: (
-            <HomeLayout>
+            <ManagerLayout>
               <Home />
-            </HomeLayout>
+            </ManagerLayout>
           )
         }
       ]

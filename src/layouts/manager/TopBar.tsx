@@ -1,88 +1,31 @@
 // import { Avatar, IconButton } from '@material-tailwind/react'
 // import { Popover, PopoverHandler, PopoverContent } from '@material-tailwind/react'
 import { Button } from '@nextui-org/react'
-import { Link } from 'react-router-dom'
-import { Popover, PopoverTrigger, PopoverContent, User } from '@nextui-org/react'
+import { useContext } from 'react'
+import { AppContext } from '~/contexts/app.context'
 
 const TopBar = ({ onShow }: { onShow: () => void }) => {
+  const { isDark, setDark } = useContext(AppContext)
+
   return (
-    <div className='py-3 px-3 border-b z-10 sticky top-0 left-0 flex justify-between bg-white'>
-      <div className='flex items-center gap-x-2'>
-        <Button isIconOnly variant='light' onClick={onShow}>
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            fill='none'
-            viewBox='0 0 24 24'
-            strokeWidth={1.5}
-            stroke='currentColor'
-            className='size-6'
-          >
-            <path strokeLinecap='round' strokeLinejoin='round' d='M3.75 6.75h16.5M3.75 12H12m-8.25 5.25h16.5' />
-          </svg>
-        </Button>
-        <Button isIconOnly className='rounded-full bg-orange-50'>
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            fill='none'
-            viewBox='0 0 24 24'
-            strokeWidth={1.5}
-            stroke='currentColor'
-            className='size-6'
-          >
-            <path
-              strokeLinecap='round'
-              strokeLinejoin='round'
-              d='m6.115 5.19.319 1.913A6 6 0 0 0 8.11 10.36L9.75 12l-.387.775c-.217.433-.132.956.21 1.298l1.348 1.348c.21.21.329.497.329.795v1.089c0 .426.24.815.622 1.006l.153.076c.433.217.956.132 1.298-.21l.723-.723a8.7 8.7 0 0 0 2.288-4.042 1.087 1.087 0 0 0-.358-1.099l-1.33-1.108c-.251-.21-.582-.299-.905-.245l-1.17.195a1.125 1.125 0 0 1-.98-.314l-.295-.295a1.125 1.125 0 0 1 0-1.591l.13-.132a1.125 1.125 0 0 1 1.3-.21l.603.302a.809.809 0 0 0 1.086-1.086L14.25 7.5l1.256-.837a4.5 4.5 0 0 0 1.528-1.732l.146-.292M6.115 5.19A9 9 0 1 0 17.18 4.64M6.115 5.19A8.965 8.965 0 0 1 12 3c1.929 0 3.716.607 5.18 1.64'
-            />
-          </svg>
-        </Button>
-        <Button isIconOnly className='rounded-full bg-orange-50'>
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            fill='none'
-            viewBox='0 0 24 24'
-            strokeWidth={1.5}
-            stroke='currentColor'
-            className='size-4'
-          >
-            <path
-              strokeLinecap='round'
-              strokeLinejoin='round'
-              d='M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z'
-            />
-          </svg>
-        </Button>
-        <Button isIconOnly variant='light' className='rounded-full '>
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            fill='none'
-            viewBox='0 0 24 24'
-            strokeWidth={1.5}
-            stroke='currentColor'
-            className='size-6'
-          >
-            <path
-              strokeLinecap='round'
-              strokeLinejoin='round'
-              d='M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0'
-            />
-          </svg>
-        </Button>
-        <Button isIconOnly className='rounded-full bg-orange-50'>
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            fill='none'
-            viewBox='0 0 24 24'
-            strokeWidth={1.5}
-            stroke='currentColor'
-            className='size-6'
-          >
-            <path strokeLinecap='round' strokeLinejoin='round' d='M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3' />
-          </svg>
-        </Button>
-      </div>
-      <div className='flex items-center gap-x-3 md:mr-10 '>
-        <Popover showArrow placement='bottom'>
+    <header className='sticky top-0'>
+      <div className='py-1 px-3 border-b border-foreground-100 z-10  left-0 flex justify-between bg-foreground-50'>
+        <div className='flex items-center gap-x-2'>
+          <Button isIconOnly variant='light' onClick={onShow}>
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              fill='none'
+              viewBox='0 0 24 24'
+              strokeWidth={1.5}
+              stroke='currentColor'
+              className='size-6 text-foreground'
+            >
+              <path strokeLinecap='round' strokeLinejoin='round' d='M3.75 6.75h16.5M3.75 12H12m-8.25 5.25h16.5' />
+            </svg>
+          </Button>
+        </div>
+        <div className='flex items-center gap-x-1  '>
+          {/* <Popover showArrow placement='bottom'>
           <PopoverTrigger>
             <User
               as='button'
@@ -142,9 +85,108 @@ const TopBar = ({ onShow }: { onShow: () => void }) => {
               </li>
             </ul>
           </PopoverContent>
-        </Popover>
+        </Popover> */}
+          <Button isIconOnly variant='light' onClick={() => setDark(!isDark)}>
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              viewBox='0 0 24 24'
+              fill='currentColor'
+              className='size-6 text-foreground'
+            >
+              <path d='M12 2.25a.75.75 0 0 1 .75.75v2.25a.75.75 0 0 1-1.5 0V3a.75.75 0 0 1 .75-.75ZM7.5 12a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM18.894 6.166a.75.75 0 0 0-1.06-1.06l-1.591 1.59a.75.75 0 1 0 1.06 1.061l1.591-1.59ZM21.75 12a.75.75 0 0 1-.75.75h-2.25a.75.75 0 0 1 0-1.5H21a.75.75 0 0 1 .75.75ZM17.834 18.894a.75.75 0 0 0 1.06-1.06l-1.59-1.591a.75.75 0 1 0-1.061 1.06l1.59 1.591ZM12 18a.75.75 0 0 1 .75.75V21a.75.75 0 0 1-1.5 0v-2.25A.75.75 0 0 1 12 18ZM7.758 17.303a.75.75 0 0 0-1.061-1.06l-1.591 1.59a.75.75 0 0 0 1.06 1.061l1.591-1.59ZM6 12a.75.75 0 0 1-.75.75H3a.75.75 0 0 1 0-1.5h2.25A.75.75 0 0 1 6 12ZM6.697 7.757a.75.75 0 0 0 1.06-1.06l-1.59-1.591a.75.75 0 0 0-1.061 1.06l1.59 1.591Z' />
+            </svg>
+          </Button>
+          <Button isIconOnly variant='light'>
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              viewBox='0 0 24 24'
+              fill='currentColor'
+              className='size-6 text-foreground'
+            >
+              <path d='M7.493 18.5c-.425 0-.82-.236-.975-.632A7.48 7.48 0 0 1 6 15.125c0-1.75.599-3.358 1.602-4.634.151-.192.373-.309.6-.397.473-.183.89-.514 1.212-.924a9.042 9.042 0 0 1 2.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 0 0 .322-1.672V2.75A.75.75 0 0 1 15 2a2.25 2.25 0 0 1 2.25 2.25c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 0 1-2.649 7.521c-.388.482-.987.729-1.605.729H14.23c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 0 0-1.423-.23h-.777ZM2.331 10.727a11.969 11.969 0 0 0-.831 4.398 12 12 0 0 0 .52 3.507C2.28 19.482 3.105 20 3.994 20H4.9c.445 0 .72-.498.523-.898a8.963 8.963 0 0 1-.924-3.977c0-1.708.476-3.305 1.302-4.666.245-.403-.028-.959-.5-.959H4.25c-.832 0-1.612.453-1.918 1.227Z' />
+            </svg>
+          </Button>
+          <div className='flex items-center gap-x-1 text-sm'>
+            <Button isIconOnly variant='light'>
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                fill='none'
+                viewBox='0 0 24 24'
+                strokeWidth={1.5}
+                stroke='currentColor'
+                className='size-6 text-foreground'
+              >
+                <path
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  d='M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z'
+                />
+              </svg>
+            </Button>
+            <p>0:54:07 AM Sep 20, 2024 GMT-4</p>
+          </div>
+          <Button isIconOnly variant='light'>
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              viewBox='0 0 24 24'
+              fill='currentColor'
+              className='size-6 text-foreground'
+            >
+              <path
+                fillRule='evenodd'
+                d='M5.25 9a6.75 6.75 0 0 1 13.5 0v.75c0 2.123.8 4.057 2.118 5.52a.75.75 0 0 1-.297 1.206c-1.544.57-3.16.99-4.831 1.243a3.75 3.75 0 1 1-7.48 0 24.585 24.585 0 0 1-4.831-1.244.75.75 0 0 1-.298-1.205A8.217 8.217 0 0 0 5.25 9.75V9Zm4.502 8.9a2.25 2.25 0 1 0 4.496 0 25.057 25.057 0 0 1-4.496 0Z'
+                clipRule='evenodd'
+              />
+            </svg>
+          </Button>
+          <Button isIconOnly variant='light'>
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              fill='none'
+              viewBox='0 0 24 24'
+              strokeWidth={1.5}
+              stroke='currentColor'
+              className='size-6 text-foreground'
+            >
+              <path
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                d='M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5'
+              />
+            </svg>
+          </Button>
+          <Button isIconOnly variant='light'>
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              fill='none'
+              viewBox='0 0 24 24'
+              strokeWidth={1.5}
+              stroke='currentColor'
+              className='size-6 text-foreground rotate-180'
+            >
+              <path
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                d='M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15'
+              />
+            </svg>
+          </Button>
+        </div>
       </div>
-    </div>
+      <div className='py-1 px-3 border-b border-foreground-100 z-10  left-0 flex justify-between bg-foreground-50'>
+        <Button isIconOnly variant='light'>
+          <svg
+            xmlns='http://www.w3.org/2000/svg'
+            viewBox='0 0 24 24'
+            fill='currentColor'
+            className='size-6 text-foreground'
+          >
+            <path d='M11.47 3.841a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 0 1.06-1.061l-8.689-8.69a2.25 2.25 0 0 0-3.182 0l-8.69 8.69a.75.75 0 1 0 1.061 1.06l8.69-8.689Z' />
+            <path d='m12 5.432 8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 0 1-.75-.75v-4.5a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0-.75.75V21a.75.75 0 0 1-.75.75H5.625a1.875 1.875 0 0 1-1.875-1.875v-6.198a2.29 2.29 0 0 0 .091-.086L12 5.432Z' />
+          </svg>
+        </Button>
+      </div>
+    </header>
   )
 }
 
