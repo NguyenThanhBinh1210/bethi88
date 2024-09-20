@@ -23,10 +23,17 @@ export const getDarkModeFromLS = () => {
   const result = localStorage.getItem('darkmode')
   return result ? JSON.parse(result) : null
 }
+export const getSecurityFromLS = () => {
+  const result = localStorage.getItem('security')
+  return result ? JSON.parse(result) : null
+}
 
 export const setProfileFromLS = (profile: Profile) => {
   localStorage.setItem('profile', JSON.stringify(profile))
 }
 export const setDarkModeFromLS = (dark: boolean) => {
   localStorage.setItem('darkmode', JSON.stringify(dark))
+}
+export const setSecurityFromLS = (dark: boolean) => {
+  localStorage.setItem('security', JSON.stringify(dark))
 }

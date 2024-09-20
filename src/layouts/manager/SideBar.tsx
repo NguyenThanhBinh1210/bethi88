@@ -7,13 +7,16 @@ import { Tabs, Tab } from '@nextui-org/react'
 const SideBar = ({ isShow }: { isShow: boolean }) => {
   return (
     <div
+      style={{ zIndex: 200 }}
       className={`${
-        isShow ? '' : ' overflow-hidden opacity-0 invisible -translate-x-full '
-      } bg-foreground-50 no-scrollbar border-r border-foreground-100 fixed z-40 left-0 overflow-auto h-screen  transition-all  py-4`}
+        isShow ? '' : ' overflow-hidden  opacity-0 invisible -translate-x-full '
+      }  no-scrollbar border-r border-foreground-100 fixed  left-0 overflow-auto h-screen  transition-all  `}
     >
-      <div className={`w-[264px] overflow-hidden transition-all `}>
+      <div className={`w-[264px] py-4 h-full bg-white overflow-hidden transition-all `}>
         <div className='px-2 flex py-2 gap-x-4 items-center'>
-          <Avatar className='flex-shrink-0' isBordered src='https://i.pravatar.cc/150?u=a042581f4e29026024d' />
+          <Link to={'/profile'}>
+            <Avatar className='flex-shrink-0' isBordered src='https://i.pravatar.cc/150?u=a042581f4e29026024d' />
+          </Link>
           <div className=' uppercase'>
             <p className='text-xs'> Bình</p>
             <p className='text-xs'>IBETCOIN</p>
@@ -39,17 +42,21 @@ const SideBar = ({ isShow }: { isShow: boolean }) => {
                         )}
                       </Link>
                     ) : (
-                      <Accordion className=''>
+                      <Accordion className='text-foreground'>
                         <AccordionItem
                           className='!py-2'
                           key='theme'
                           aria-label='Theme'
-                          title={<div className='text-sm uppercase'>{item.title}</div>}
+                          title={
+                            <div className='text-sm uppercase text-foreground transition-colors duration-400'>
+                              {item.title}
+                            </div>
+                          }
                           startContent={item.icon}
                         >
                           <div className='space-y-2 pl-5'>
                             {item.subMenu?.map((itemx, indexx) => (
-                              <Link className='block' key={indexx} to={itemx.path}>
+                              <Link className='block hover:text-foreground-500' key={indexx} to={itemx.path}>
                                 {itemx.title}
                               </Link>
                             ))}
@@ -83,19 +90,18 @@ const SideBar = ({ isShow }: { isShow: boolean }) => {
                   variant='light'
                   className='flex px-2 uppercase font-medium w-full gap-1.5 justify-start items-center  py-2.5'
                 >
-                  {' '}
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
                     fill='none'
                     viewBox='0 0 24 24'
                     strokeWidth={1.5}
                     stroke='currentColor'
-                    className='size-4'
+                    className='size-4 text-foreground'
                   >
                     <path
                       strokeLinecap='round'
                       strokeLinejoin='round'
-                      d='M8.625 9.75a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 0 1 .778-.332 48.294 48.294 0 0 0 5.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z'
+                      d='M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z'
                     />
                   </svg>
                   SECURITY
@@ -111,12 +117,12 @@ const SideBar = ({ isShow }: { isShow: boolean }) => {
                     viewBox='0 0 24 24'
                     strokeWidth={1.5}
                     stroke='currentColor'
-                    className='size-4'
+                    className='size-4 text-foreground'
                   >
                     <path
                       strokeLinecap='round'
                       strokeLinejoin='round'
-                      d='M8.625 9.75a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 0 1 .778-.332 48.294 48.294 0 0 0 5.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z'
+                      d='m18.375 12.739-7.693 7.693a4.5 4.5 0 0 1-6.364-6.364l10.94-10.94A3 3 0 1 1 19.5 7.372L8.552 18.32m.009-.01-.01.01m5.699-9.941-7.81 7.81a1.5 1.5 0 0 0 2.112 2.13'
                     />
                   </svg>
                   Available Domains

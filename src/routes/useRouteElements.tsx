@@ -9,6 +9,9 @@ import { useContext } from 'react'
 // import ManagerLayout from '~/layouts/ManagerLayout'
 // import HomeLayout from '~/layouts/HomeLayout'
 import ManagerLayout from '~/layouts/ManagerLayout'
+import Profile from '~/pages/Profile'
+import SecurityValidation from '~/pages/SecurityValidation'
+import Notification from '~/pages/Notification'
 
 const useRouteElements = () => {
   function ProtecedRoute() {
@@ -52,6 +55,30 @@ const useRouteElements = () => {
           element: (
             <ManagerLayout>
               <Home />
+            </ManagerLayout>
+          )
+        },
+        {
+          path: '/profile',
+          element: (
+            <ManagerLayout>
+              <Profile />
+            </ManagerLayout>
+          )
+        },
+        {
+          path: '/security-code',
+          element: (
+            <ManagerLayout>
+              <SecurityValidation />
+            </ManagerLayout>
+          )
+        },
+        {
+          path: '/notification',
+          element: (
+            <ManagerLayout>
+              <Notification />
             </ManagerLayout>
           )
         }

@@ -27,17 +27,16 @@ const ManagerLayout = ({ children }: LayoutPropsInterface) => {
       <SideBar isShow={showSideBar} />
       <div
         onClick={() => setShowSideBar(false)}
+        style={{ zIndex: 199 }}
         className={`transition-all ${
           showSideBar ? 'bg-opacity-20 visible' : 'bg-opacity-0 invisible'
-        } fixed top-0 left-0 w-full h-full bg-black  z-20 md:hidden`}
+        } fixed top-0 left-0 w-full h-full bg-black  md:hidden`}
       ></div>
-      <div
-        className={`   ${showSideBar ? 'md:translate-x-[264px] md:w-[calc(100%-264px)]' : 'w-full'} transition-all `}
-      >
+      <div className={`${showSideBar ? 'md:translate-x-[264px] md:w-[calc(100%-264px)]' : 'w-full'} transition-all `}>
         <TopBar onShow={() => setShowSideBar(!showSideBar)} />
         <div className=''>
-          <div className='pt-7 pb-5 px-5  min-h-[calc(100vh-125.6px)]'>{children}</div>
-          <div className='border-t  text-sm text-center py-4'>© Created by Catalina 2024</div>
+          <div className='pt-3 pb-5 px-3  min-h-[calc(100vh-125.6px)] bg-foreground-50'>{children}</div>
+          <div className='border-t border-foreground-100 text-sm text-center py-4'>© Created by Catalina 2024</div>
         </div>
       </div>
     </div>
