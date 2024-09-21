@@ -1,12 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Button, DatePicker, Pagination } from '@nextui-org/react'
+import { Pagination } from '@nextui-org/react'
 import { useCallback, useMemo, useState } from 'react'
-import { DateValue, parseDate } from '@internationalized/date'
 import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell } from '@nextui-org/react'
+import FilterDateRange from '../FilterDateRange'
 
 const TabNormal = () => {
-  const [valueFrom, setValueFrom] = useState<DateValue>(parseDate('2024-09-17'))
-  const [valueTo, setValueTo] = useState<DateValue>(parseDate('2024-09-20'))
   const [rowsPerPage, setRowsPerPage] = useState<number>(10)
   const notification = Array(200).fill(0)
   const [page, setPage] = useState<number>(1)
@@ -42,29 +40,7 @@ const TabNormal = () => {
 
   return (
     <div>
-      <div className='flex gap-5 flex-wrap'>
-        <DatePicker
-          size='sm'
-          variant='bordered'
-          label={'From'}
-          className='max-w-[200px]'
-          labelPlacement={'outside-left'}
-          value={valueFrom}
-          onChange={setValueFrom}
-        />
-        <DatePicker
-          size='sm'
-          variant='bordered'
-          label={'To'}
-          className='max-w-[200px]'
-          labelPlacement={'outside-left'}
-          value={valueTo}
-          onChange={setValueTo}
-        />
-        <Button className='rounded' size='sm' color='primary'>
-          Submit
-        </Button>
-      </div>
+      <FilterDateRange />
       <Table className='mt-4' isHeaderSticky isStriped aria-label='table'>
         <TableHeader>
           <TableColumn className='w-[50px]'>#</TableColumn>

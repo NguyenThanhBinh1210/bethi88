@@ -1,58 +1,21 @@
-export const menuItems = [
+export const animals = [
+  { label: 'Cat', value: 'cat', description: 'The second most popular pet in the world' },
+  { label: 'Dog', value: 'dog', description: 'The most popular pet in the world' },
+  { label: 'Elephant', value: 'elephant', description: 'The largest land animal' },
+  { label: 'Lion', value: 'lion', description: 'The king of the jungle' },
+  { label: 'Tiger', value: 'tiger', description: 'The largest cat species' },
+  { label: 'Giraffe', value: 'giraffe', description: 'The tallest land animal' },
   {
-    title: 'Home',
-    url: '/'
+    label: 'Dolphin',
+    value: 'dolphin',
+    description: 'A widely distributed and diverse group of aquatic mammals'
   },
+  { label: 'Penguin', value: 'penguin', description: 'A group of aquatic flightless birds' },
+  { label: 'Zebra', value: 'zebra', description: 'A several species of African equids' },
   {
-    title: 'Services',
-    url: '/services',
-    submenu: [
-      {
-        title: 'web design',
-        url: 'web-design'
-      },
-      {
-        title: 'web development',
-        url: 'web-dev',
-        submenu: [
-          {
-            title: 'Frontend',
-            url: 'frontend'
-          },
-          {
-            title: 'Backend',
-            submenu: [
-              {
-                title: 'NodeJS',
-                url: 'node'
-              },
-              {
-                title: 'PHP',
-                url: 'php'
-              }
-            ]
-          }
-        ]
-      },
-      {
-        title: 'SEO',
-        url: 'seo'
-      }
-    ]
-  },
-  {
-    title: 'About',
-    url: '/about',
-    submenu: [
-      {
-        title: 'Who we are',
-        url: 'who-we-are'
-      },
-      {
-        title: 'Our values',
-        url: 'our-values'
-      }
-    ]
+    label: 'Shark',
+    value: 'shark',
+    description: 'A group of elasmobranch fish characterized by a cartilaginous skeleton'
   }
 ]
 export const menuCMS = [
@@ -77,23 +40,23 @@ export const menuCMS = [
     subMenu: [
       {
         title: 'Agent Outstanding',
-        path: '/products'
+        path: '/reports/agent-outstanding'
       },
       {
         title: 'Agent Win Loss',
-        path: '/reviews'
+        path: '/reports/agent-win-loss'
       },
       {
         title: 'Agent Win Loss Detail',
-        path: '/products'
+        path: '/reports/agent-win-loss-detail'
       },
       {
         title: 'Match Win Loss Detail',
-        path: '/reviews'
+        path: '/reports/match-win-loss-detail'
       },
       {
         title: 'Win Loss Analysis',
-        path: '/products'
+        path: '/reports/win-loss-analysis'
       },
       {
         title: 'Win Loss Analysis Chart',
@@ -264,51 +227,51 @@ export const menuCMS = [
     subMenu: [
       {
         title: 'Soccer',
-        path: '/products'
+        path: '/bets-forcast/soccer'
       },
       {
         title: 'Handicap/Over Under/Live',
-        path: '/reviews'
+        path: '/bets-forcast/handicap-over-under-live'
       },
       {
         title: 'Money Line',
-        path: '/reviews'
+        path: '/bets-forcast/money-line'
       },
       {
         title: 'Odd/Even + 1x2 + DND',
-        path: '/reviews'
+        path: '/bets-forcast/odd-even-1x2-dnd'
       },
       {
         title: 'FT & HT Total Goal',
-        path: '/reviews'
+        path: '/bets-forcast/ft-ht-total-goal'
       },
       {
         title: 'Outright',
-        path: '/reviews'
+        path: '/bets-forcast/outright'
       },
       {
         title: 'HT/FT',
-        path: '/reviews'
+        path: '/bets-forcast/ht-ft'
       },
       {
         title: 'FT & HT FG/LG',
-        path: '/reviews'
+        path: '/bets-forcast/ft-ht-fg-lg'
       },
       {
         title: 'Home/Draw/Away No Bet',
-        path: '/reviews'
+        path: '/bets-forcast/home-draw-away-no-bet'
       },
       {
         title: 'Number Game',
-        path: '/reviews'
+        path: '/bets-forcast/number-game'
       },
       {
         title: '1X2',
-        path: '/reviews'
+        path: '/bets-forcast/1x2'
       },
       {
         title: 'Score Map',
-        path: '/reviews'
+        path: '/bets-forcast/score-map'
       }
     ]
   },
@@ -350,24 +313,7 @@ export const menuCMS = [
       </svg>
     ),
     title: 'View log',
-    subMenu: [
-      {
-        title: 'Setting',
-        path: '/products'
-      },
-      {
-        title: 'Status',
-        path: '/reviews'
-      },
-      {
-        title: 'Credit',
-        path: '/products'
-      },
-      {
-        title: 'Login',
-        path: '/reviews'
-      }
-    ]
+    path: 'view-log'
   },
   {
     icon: (
@@ -387,24 +333,7 @@ export const menuCMS = [
       </svg>
     ),
     title: 'Announcements',
-    subMenu: [
-      {
-        title: 'Normal',
-        path: '/products'
-      },
-      {
-        title: 'Special',
-        path: '/reviews'
-      },
-      {
-        title: 'System',
-        path: '/products'
-      },
-      {
-        title: 'Personal Message',
-        path: '/reviews'
-      }
-    ]
+    path: 'notification'
   },
   {
     icon: (

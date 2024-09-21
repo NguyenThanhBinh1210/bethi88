@@ -12,7 +12,7 @@ const SideBar = ({ isShow }: { isShow: boolean }) => {
         isShow ? '' : ' overflow-hidden  opacity-0 invisible -translate-x-full '
       }  no-scrollbar border-r border-foreground-100 fixed  left-0 overflow-auto h-screen  transition-all  `}
     >
-      <div className={`w-[264px] py-4 h-full bg-white overflow-hidden transition-all `}>
+      <div className={`w-[264px] py-4 h-full bg-background  overflow-hidden transition-all `}>
         <div className='px-2 flex py-2 gap-x-4 items-center'>
           <Link to={'/profile'}>
             <Avatar className='flex-shrink-0' isBordered src='https://i.pravatar.cc/150?u=a042581f4e29026024d' />
@@ -30,7 +30,7 @@ const SideBar = ({ isShow }: { isShow: boolean }) => {
                 {menuCMS.map((item, index) => (
                   <div key={index}>
                     {item.path ? (
-                      <Link to={`/seller/${item.path}`} className='flex px-2 justify-between items-center  py-2.5'>
+                      <Link to={`/${item.path}`} className='flex px-2 justify-between items-center  py-2.5'>
                         <div className='flex items-center gap-x-1.5'>
                           {item.icon}
                           <p className='text-sm uppercase'>{item.title}</p>
@@ -42,16 +42,12 @@ const SideBar = ({ isShow }: { isShow: boolean }) => {
                         )}
                       </Link>
                     ) : (
-                      <Accordion className='text-foreground'>
+                      <Accordion className=''>
                         <AccordionItem
                           className='!py-2'
                           key='theme'
                           aria-label='Theme'
-                          title={
-                            <div className='text-sm uppercase text-foreground transition-colors duration-400'>
-                              {item.title}
-                            </div>
-                          }
+                          title={<div className='text-sm uppercase'>{item.title}</div>}
                           startContent={item.icon}
                         >
                           <div className='space-y-2 pl-5'>
