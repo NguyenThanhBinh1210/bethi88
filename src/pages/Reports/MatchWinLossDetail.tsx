@@ -8,7 +8,8 @@ const MatchWinLossDetail = () => {
       <div className='mb-4 pb-3 border-b border-foreground-200 uppercase font-medium'>Match Win Loss Detail</div>
       <div className='flex gap-2 md:gap-6 mb-4 flex-wrap'>
         <DateRangePicker
-          size='md'
+          size='sm'
+          variant='bordered'
           className='max-w-52'
           labelPlacement='outside'
           defaultValue={{
@@ -29,7 +30,7 @@ const MatchWinLossDetail = () => {
           <p className='font-medium text-xs mb-2'>Username</p>
           <input
             type='text'
-            className='border border-foreground-200 text-sm py-[9px] px-2'
+            className='border-2 border-foreground-200 text-xs py-[6.5px] rounded px-2'
             placeholder='Username or First/ Last name'
           />
         </div>

@@ -1,10 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { Accordion, AccordionItem, Avatar, Button, Input } from '@nextui-org/react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { menuCMS } from '~/constants/renaral.const'
 import { Tabs, Tab } from '@nextui-org/react'
+import { useContext } from 'react'
+import { AppContext } from '~/contexts/app.context'
 const SideBar = ({ isShow }: { isShow: boolean }) => {
+  const { isSecurity } = useContext(AppContext)
+  const navigate = useNavigate()
   return (
     <div
       style={{ zIndex: 200 }}
@@ -62,7 +66,11 @@ const SideBar = ({ isShow }: { isShow: boolean }) => {
                     )}
                   </div>
                 ))}
-                <button className='flex px-2 w-full text-blue-600 gap-1.5 justify items-center  py-2.5'>
+                <Button
+                  variant='light'
+                  onClick={() => navigate('/telegram')}
+                  className='flex px-2 w-full text-blue-600 gap-1.5 justify-start font-medium items-center  py-2.5'
+                >
                   {' '}
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
@@ -79,10 +87,19 @@ const SideBar = ({ isShow }: { isShow: boolean }) => {
                     />
                   </svg>
                   CHATBOT
-                </button>
+                </Button>
               </div>
               <div className='mt-2 border-t-foreground-200 border-t space-y-2 py-2'>
                 <Button
+                  onClick={() => {
+                    isSecurity
+                      ? navigate('/profile', {
+                          state: {
+                            tabValue: 'otp'
+                          }
+                        })
+                      : navigate('/security-code')
+                  }}
                   variant='light'
                   className='flex px-2 uppercase font-medium w-full gap-1.5 justify-start items-center  py-2.5'
                 >

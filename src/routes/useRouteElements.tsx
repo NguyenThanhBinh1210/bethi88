@@ -6,29 +6,15 @@ import { AppContext } from '~/contexts/app.context'
 import LoginLayout from '~/layouts/LoginLayout'
 import Home from '~/pages/Home'
 import { useContext } from 'react'
-// import ManagerLayout from '~/layouts/ManagerLayout'
-// import HomeLayout from '~/layouts/HomeLayout'
 import ManagerLayout from '~/layouts/ManagerLayout'
 import Profile from '~/pages/Profile'
 import SecurityValidation from '~/pages/SecurityValidation'
 import Notification from '~/pages/Notification'
-import AgentOutstanding from '~/pages/Reports/AgentOutstanding'
-import AgentWinLoss from '~/pages/Reports/AgentWinLoss'
-import AgentWinLossDetail from '~/pages/Reports/AgentWinLossDetail'
-import MatchWinLossDetail from '~/pages/Reports/MatchWinLossDetail'
 import ViewLog from '~/pages/ViewLog'
-import Soccer from '~/pages/BetsForcast/Soccer'
-import HandicapOverUnderLive from '~/pages/BetsForcast/HandicapOverUnderLive'
-import MoneyLine from '~/pages/BetsForcast/MoneyLine'
-import OddEven1x2DND from '~/pages/BetsForcast/OddEven1x2DND'
-import FTHTTotalGoal from '~/pages/BetsForcast/FTHTTotalGoal'
-import Outright from '~/pages/BetsForcast/Outright'
-import HTFT from '~/pages/BetsForcast/HTFT'
-import FTHTFGLG from '~/pages/BetsForcast/FTHTFGLG'
-import HomeDrawAwayNoBet from '~/pages/BetsForcast/HomeDrawAwayNoBet'
-import NumberGame from '~/pages/BetsForcast/NumberGame'
-import Page1X2 from '~/pages/BetsForcast/Page1X2'
-import ScoreMap from '~/pages/BetsForcast/ScoreMap'
+import { reportsRoute } from './reportsRoute'
+import { betsForcastRoute } from './betsForcastRoute'
+import { betListsRoute } from './betListsRoute'
+import Telegram from '~/pages/Telegram'
 
 const useRouteElements = () => {
   function ProtecedRoute() {
@@ -100,46 +86,6 @@ const useRouteElements = () => {
           )
         },
         {
-          path: '/reports/agent-outstanding',
-          element: (
-            <ManagerLayout>
-              <AgentOutstanding />
-            </ManagerLayout>
-          )
-        },
-        {
-          path: '/reports/agent-win-loss',
-          element: (
-            <ManagerLayout>
-              <AgentWinLoss />
-            </ManagerLayout>
-          )
-        },
-        {
-          path: '/reports/agent-win-loss-detail',
-          element: (
-            <ManagerLayout>
-              <AgentWinLossDetail />
-            </ManagerLayout>
-          )
-        },
-        {
-          path: '/reports/match-win-loss-detail',
-          element: (
-            <ManagerLayout>
-              <MatchWinLossDetail />
-            </ManagerLayout>
-          )
-        },
-        {
-          path: '/reports/win-loss-analysis',
-          element: (
-            <ManagerLayout>
-              <MatchWinLossDetail />
-            </ManagerLayout>
-          )
-        },
-        {
           path: '/view-log',
           element: (
             <ManagerLayout>
@@ -148,101 +94,16 @@ const useRouteElements = () => {
           )
         },
         {
-          path: '/bets-forcast/soccer',
+          path: '/telegram',
           element: (
             <ManagerLayout>
-              <Soccer />
+              <Telegram />
             </ManagerLayout>
           )
         },
-        {
-          path: '/bets-forcast/handicap-over-under-live',
-          element: (
-            <ManagerLayout>
-              <HandicapOverUnderLive />
-            </ManagerLayout>
-          )
-        },
-        {
-          path: '/bets-forcast/money-line',
-          element: (
-            <ManagerLayout>
-              <MoneyLine />
-            </ManagerLayout>
-          )
-        },
-        {
-          path: '/bets-forcast/odd-even-1x2-dnd',
-          element: (
-            <ManagerLayout>
-              <OddEven1x2DND />
-            </ManagerLayout>
-          )
-        },
-        {
-          path: '/bets-forcast/ft-ht-total-goal',
-          element: (
-            <ManagerLayout>
-              <FTHTTotalGoal />
-            </ManagerLayout>
-          )
-        },
-        {
-          path: '/bets-forcast/outright',
-          element: (
-            <ManagerLayout>
-              <Outright />
-            </ManagerLayout>
-          )
-        },
-        {
-          path: '/bets-forcast/ht-ft',
-          element: (
-            <ManagerLayout>
-              <HTFT />
-            </ManagerLayout>
-          )
-        },
-        {
-          path: '/bets-forcast/ft-ht-fg-lg',
-          element: (
-            <ManagerLayout>
-              <FTHTFGLG />
-            </ManagerLayout>
-          )
-        },
-        {
-          path: '/bets-forcast/home-draw-away-no-bet',
-          element: (
-            <ManagerLayout>
-              <HomeDrawAwayNoBet />
-            </ManagerLayout>
-          )
-        },
-        {
-          path: '/bets-forcast/number-game',
-          element: (
-            <ManagerLayout>
-              <NumberGame />
-            </ManagerLayout>
-          )
-        },
-        {
-          path: '/bets-forcast/1X2',
-          element: (
-            <ManagerLayout>
-              <Page1X2 />
-            </ManagerLayout>
-          )
-        },
-        {
-          path: '/bets-forcast/score-map',
-          element: (
-            <ManagerLayout>
-              <ScoreMap />
-            </ManagerLayout>
-          )
-        }
+        ...reportsRoute,
+        ...betsForcastRoute,
+        ...betListsRoute
       ]
     },
     {

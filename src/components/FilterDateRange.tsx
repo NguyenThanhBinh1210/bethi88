@@ -6,7 +6,7 @@ const FilterDateRange = () => {
   const [valueFrom, setValueFrom] = useState<DateValue>(parseDate('2024-09-17'))
   const [valueTo, setValueTo] = useState<DateValue>(parseDate('2024-09-20'))
   return (
-    <div className='flex gap-5 flex-wrap'>
+    <div className='flex gap-5  items-center '>
       <DatePicker
         size='sm'
         variant='bordered'

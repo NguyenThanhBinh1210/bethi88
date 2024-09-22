@@ -72,7 +72,7 @@ const SelectChecked = () => {
   return (
     <Popover>
       <PopoverTrigger>
-        <Button className='rounded-none bg-foreground-50 border-foreground-200 border'>
+        <Button size='sm' className='rounded border-2 bg-foreground-50 border-foreground-200'>
           <div className='flex justify-between gap-x-3 items-center'>
             {selectedOptions.length === allValues.length
               ? `All Product (${allValues.length})`

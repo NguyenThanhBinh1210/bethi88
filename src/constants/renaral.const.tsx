@@ -64,27 +64,27 @@ export const menuCMS = [
       },
       {
         title: 'Win Loss By Product',
-        path: '/products'
+        path: '/reports/win-loss-by-product'
       },
       {
         title: 'Commission By Bet Type',
-        path: '/reviews'
+        path: '/reports/commission-by-bet-type'
       },
       {
         title: 'Statement',
-        path: '/products'
+        path: '/reports/statement'
       },
       {
         title: 'Results',
-        path: '/reviews'
+        path: '/reports/results'
       },
       {
         title: 'Progressive Games Contribution',
-        path: '/products'
+        path: '/reports/progressive-games-contribution'
       },
       {
         title: 'Bet Credit Tracking',
-        path: '/reviews'
+        path: '/reports/bet-credit-tracking'
       }
     ]
   },
@@ -170,39 +170,39 @@ export const menuCMS = [
     subMenu: [
       {
         title: 'Search Tickets',
-        path: '/products'
+        path: '/bet-lists/search-tickets'
       },
       {
         title: 'Cancelled Bets',
-        path: '/reviews'
+        path: '/bet-lists/cancelled-bets'
       },
       {
         title: 'Correct Score',
-        path: '/products'
+        path: '/bet-lists/correct-score'
       },
       {
         title: 'Parlay',
-        path: '/reviews'
+        path: '/bet-lists/parlay'
       },
       {
         title: 'Clean Sheet',
-        path: '/products'
+        path: '/bet-lists/clean-sheet'
       },
       {
         title: 'Double Chance',
-        path: '/reviews'
+        path: '/bet-lists/double-chance'
       },
       {
         title: 'Both/One/Neither Team To Score',
-        path: '/products'
+        path: '/bet-lists/both-one-neither-team-to-score'
       },
       {
         title: 'To Win To Nil',
-        path: '/reviews'
+        path: '/bet-lists/to-win-to-nil'
       },
       {
         title: '3-Way Handicap',
-        path: '/reviews'
+        path: '/bet-lists/3-way-hadicap'
       }
     ]
   },
