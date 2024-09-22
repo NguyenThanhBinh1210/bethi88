@@ -7,7 +7,7 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false)
 
   return (
-    <div className='w-full h-screen flex items-center justify-center'>
+    <div className='w-full h-screen flex items-center justify-center px-5'>
       <form className='border w-full max-w-md border-foreground-300 rounded-md p-4 bg-background dark:bg-foreground-100'>
         <div className='flex justify-end'>
           <Button
@@ -24,11 +24,11 @@ const Login = () => {
           </Button>
         </div>
         <h1 className='text-2xl text-center'>Login</h1>
-        <Input className='mb-2' variant='underlined' placeholder='Username' autoFocus></Input>
+        <Input className='mb-4' variant='underlined' placeholder='Username' autoFocus></Input>
         <Input
-          className='mb-2'
+          className='mb-4'
           variant='underlined'
-          placeholder='Username'
+          placeholder='Password'
           type={showPassword ? 'text' : 'password'}
           autoFocus
         ></Input>
