@@ -1,17 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { Accordion, AccordionItem, Avatar, Button, Input } from '@nextui-org/react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { menuCMS } from '~/constants/renaral.const'
 import { Tabs, Tab } from '@nextui-org/react'
 import { useContext } from 'react'
 import { AppContext } from '~/contexts/app.context'
 const SideBar = ({ isShow }: { isShow: boolean }) => {
   const { isSecurity } = useContext(AppContext)
+  const location = useLocation().pathname
+  console.log(location)
   const navigate = useNavigate()
   return (
     <div
-      style={{ zIndex: 200 }}
+      style={{ zIndex: 21 }}
       className={`${
         isShow ? '' : ' overflow-hidden  opacity-0 invisible -translate-x-full '
       }  no-scrollbar border-r border-foreground-100 fixed  left-0 overflow-auto h-screen  transition-all  `}
@@ -27,14 +29,14 @@ const SideBar = ({ isShow }: { isShow: boolean }) => {
             <p className='text-xs'>OTP: Disabled</p>
           </div>
         </div>
-        <div className=' px-2 flex w-full flex-col pt-3'>
+        <div className=' flex w-full flex-col pt-3 overflow-y-auto h-[100%] no-scrollbar'>
           <Tabs aria-label='Options'>
-            <Tab key='main' title='MAIN MENU' className='font-medium text-[13px]'>
+            <Tab key='main' title='MAIN MENU' className='font-medium text-[13px] '>
               <div>
                 {menuCMS.map((item, index) => (
                   <div key={index}>
                     {item.path ? (
-                      <Link to={`/${item.path}`} className='flex px-2 justify-between items-center  py-2.5'>
+                      <Link to={`/${item.path}`} className='flex px-2 rounded  justify-between items-center  py-2.5'>
                         <div className='flex items-center gap-x-1.5'>
                           {item.icon}
                           <p className='text-sm uppercase'>{item.title}</p>
@@ -46,9 +48,9 @@ const SideBar = ({ isShow }: { isShow: boolean }) => {
                         )}
                       </Link>
                     ) : (
-                      <Accordion className=''>
+                      <Accordion className='!px-0'>
                         <AccordionItem
-                          className='!py-2'
+                          className='!py-2 rounded px-2 '
                           key='theme'
                           aria-label='Theme'
                           title={<div className='text-sm uppercase'>{item.title}</div>}
@@ -56,7 +58,13 @@ const SideBar = ({ isShow }: { isShow: boolean }) => {
                         >
                           <div className='space-y-2 pl-5'>
                             {item.subMenu?.map((itemx, indexx) => (
-                              <Link className='block hover:text-foreground-500' key={indexx} to={itemx.path}>
+                              <Link
+                                className={`${
+                                  location === itemx.path && 'text-blue-500'
+                                } block hover:text-foreground-500`}
+                                key={indexx}
+                                to={itemx.path}
+                              >
                                 {itemx.title}
                               </Link>
                             ))}
@@ -120,6 +128,9 @@ const SideBar = ({ isShow }: { isShow: boolean }) => {
                   SECURITY
                 </Button>
                 <Button
+                  onClick={() => {
+                    navigate('/available-domains')
+                  }}
                   variant='light'
                   className='flex px-2 uppercase font-medium w-full gap-1.5 justify-start items-center  py-2.5'
                 >

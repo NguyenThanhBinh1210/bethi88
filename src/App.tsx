@@ -8,12 +8,7 @@ import { AppContext } from './contexts/app.context'
 const App = () => {
   const routeElements = useRouteElements()
   const { isDark } = useContext(AppContext)
-  return (
-    <main className={` ${isDark && 'dark'} min-h-screen transition-colors text-foreground  bg-background`}>
-      {/* <Button onClick={() => setDark(!isDark)}>Darkmode</Button> */}
-      {routeElements}
-    </main>
-  )
+  return <main className={` ${isDark && 'dark'} min-h-screen  text-foreground bg-background`}>{routeElements}</main>
 }
 
 export default App

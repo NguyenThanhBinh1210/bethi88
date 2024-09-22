@@ -6,25 +6,29 @@ const FilterDateRange = () => {
   const [valueFrom, setValueFrom] = useState<DateValue>(parseDate('2024-09-17'))
   const [valueTo, setValueTo] = useState<DateValue>(parseDate('2024-09-20'))
   return (
-    <div className='flex gap-5  items-center '>
-      <DatePicker
-        size='sm'
-        variant='bordered'
-        label={'From'}
-        className='max-w-[200px]'
-        labelPlacement={'outside-left'}
-        value={valueFrom}
-        onChange={setValueFrom}
-      />
-      <DatePicker
-        size='sm'
-        variant='bordered'
-        label={'To'}
-        className='max-w-[200px]'
-        labelPlacement={'outside-left'}
-        value={valueTo}
-        onChange={setValueTo}
-      />
+    <div className='flex gap-5  items-center flex-wrap '>
+      <div>
+        <DatePicker
+          size='sm'
+          variant='bordered'
+          label={'From'}
+          className='max-w-[200px]'
+          labelPlacement={'outside-left'}
+          value={valueFrom}
+          onChange={setValueFrom}
+        />
+      </div>
+      <div>
+        <DatePicker
+          size='sm'
+          variant='bordered'
+          label={'To'}
+          className='max-w-[200px]'
+          labelPlacement={'outside-left'}
+          value={valueTo}
+          onChange={setValueTo}
+        />
+      </div>
       <Button className='rounded' size='sm' color='primary'>
         Submit
       </Button>

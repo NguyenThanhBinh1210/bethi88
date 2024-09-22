@@ -41,7 +41,7 @@ const Soccer = () => {
             <SelectItem key={animal.value}>{animal.label}</SelectItem>
           ))}
         </Select>
-        <Button size='sm' className='rounded ml-10' color='primary'>
+        <Button size='sm' className='rounded ' color='primary'>
           Submit
         </Button>
         <CountDownController />

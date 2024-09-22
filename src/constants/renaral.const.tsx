@@ -293,7 +293,7 @@ export const menuCMS = [
       </svg>
     ),
     title: 'Transfer',
-    path: 'dashboard'
+    path: 'transfer'
   },
   {
     icon: (
@@ -356,11 +356,11 @@ export const menuCMS = [
     subMenu: [
       {
         title: 'Member Win/Loss Limit',
-        path: '/products'
+        path: '/risk-management/member-win-loss-limit'
       },
       {
         title: 'My Thresholds',
-        path: '/reviews'
+        path: '/risk-management/my-thresholds'
       }
     ]
   }

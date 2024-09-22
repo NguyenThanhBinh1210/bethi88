@@ -3,11 +3,8 @@
 import {
   Badge,
   Button,
-  Modal,
   ModalBody,
-  ModalContent,
   ModalFooter,
-  ModalHeader,
   Popover,
   PopoverContent,
   PopoverTrigger,
@@ -16,6 +13,7 @@ import {
 } from '@nextui-org/react'
 import { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
+import BaseModal from '~/components/modals/BaseModal'
 import { AppContext } from '~/contexts/app.context'
 import { setDarkModeFromLS } from '~/utils/auth'
 
@@ -25,7 +23,7 @@ const TopBar = ({ onShow }: { onShow: () => void }) => {
   const [isInvisible] = useState<boolean>(false)
   return (
     <>
-      <header style={{ zIndex: 100 }} className='sticky top-0 !transition-all duration-500 bg-white dark:bg-black'>
+      <header style={{ zIndex: 19 }} className='sticky top-0 !transition-all duration-500 bg-white dark:bg-black'>
         <div className='py-1 px-3 border-b border-foreground-100  left-0 flex justify-between '>
           <div className='flex items-center gap-x-2'>
             <Button isIconOnly variant='light' onClick={onShow}>
@@ -35,7 +33,7 @@ const TopBar = ({ onShow }: { onShow: () => void }) => {
                 viewBox='0 0 24 24'
                 strokeWidth={1.5}
                 stroke='currentColor'
-                className='size-6 text-foreground'
+                className='size-6'
               >
                 <path strokeLinecap='round' strokeLinejoin='round' d='M3.75 6.75h16.5M3.75 12H12m-8.25 5.25h16.5' />
               </svg>
@@ -50,22 +48,12 @@ const TopBar = ({ onShow }: { onShow: () => void }) => {
                 setDark(!isDark)
               }}
             >
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                viewBox='0 0 24 24'
-                fill='currentColor'
-                className='size-6 text-foreground'
-              >
+              <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' className='size-6'>
                 <path d='M12 2.25a.75.75 0 0 1 .75.75v2.25a.75.75 0 0 1-1.5 0V3a.75.75 0 0 1 .75-.75ZM7.5 12a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM18.894 6.166a.75.75 0 0 0-1.06-1.06l-1.591 1.59a.75.75 0 1 0 1.06 1.061l1.591-1.59ZM21.75 12a.75.75 0 0 1-.75.75h-2.25a.75.75 0 0 1 0-1.5H21a.75.75 0 0 1 .75.75ZM17.834 18.894a.75.75 0 0 0 1.06-1.06l-1.59-1.591a.75.75 0 1 0-1.061 1.06l1.59 1.591ZM12 18a.75.75 0 0 1 .75.75V21a.75.75 0 0 1-1.5 0v-2.25A.75.75 0 0 1 12 18ZM7.758 17.303a.75.75 0 0 0-1.061-1.06l-1.591 1.59a.75.75 0 0 0 1.06 1.061l1.591-1.59ZM6 12a.75.75 0 0 1-.75.75H3a.75.75 0 0 1 0-1.5h2.25A.75.75 0 0 1 6 12ZM6.697 7.757a.75.75 0 0 0 1.06-1.06l-1.59-1.591a.75.75 0 0 0-1.061 1.06l1.59 1.591Z' />
               </svg>
             </Button>
             <Button onPress={onOpen} isIconOnly variant='light'>
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                viewBox='0 0 24 24'
-                fill='currentColor'
-                className='size-6 text-foreground'
-              >
+              <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' className='size-6'>
                 <path d='M7.493 18.5c-.425 0-.82-.236-.975-.632A7.48 7.48 0 0 1 6 15.125c0-1.75.599-3.358 1.602-4.634.151-.192.373-.309.6-.397.473-.183.89-.514 1.212-.924a9.042 9.042 0 0 1 2.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 0 0 .322-1.672V2.75A.75.75 0 0 1 15 2a2.25 2.25 0 0 1 2.25 2.25c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 0 1-2.649 7.521c-.388.482-.987.729-1.605.729H14.23c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 0 0-1.423-.23h-.777ZM2.331 10.727a11.969 11.969 0 0 0-.831 4.398 12 12 0 0 0 .52 3.507C2.28 19.482 3.105 20 3.994 20H4.9c.445 0 .72-.498.523-.898a8.963 8.963 0 0 1-.924-3.977c0-1.708.476-3.305 1.302-4.666.245-.403-.028-.959-.5-.959H4.25c-.832 0-1.612.453-1.918 1.227Z' />
               </svg>
             </Button>
@@ -77,7 +65,7 @@ const TopBar = ({ onShow }: { onShow: () => void }) => {
                   viewBox='0 0 24 24'
                   strokeWidth={1.5}
                   stroke='currentColor'
-                  className='size-6 text-foreground'
+                  className='size-6'
                 >
                   <path
                     strokeLinecap='round'
@@ -91,12 +79,7 @@ const TopBar = ({ onShow }: { onShow: () => void }) => {
             <Link to={'/notification'}>
               <Button isIconOnly variant='light'>
                 <Badge color='danger' content={5} isInvisible={isInvisible} shape='circle'>
-                  <svg
-                    xmlns='http://www.w3.org/2000/svg'
-                    viewBox='0 0 24 24'
-                    fill='currentColor'
-                    className='size-6 text-foreground'
-                  >
+                  <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' className='size-6'>
                     <path
                       fillRule='evenodd'
                       d='M5.25 9a6.75 6.75 0 0 1 13.5 0v.75c0 2.123.8 4.057 2.118 5.52a.75.75 0 0 1-.297 1.206c-1.544.57-3.16.99-4.831 1.243a3.75 3.75 0 1 1-7.48 0 24.585 24.585 0 0 1-4.831-1.244.75.75 0 0 1-.298-1.205A8.217 8.217 0 0 0 5.25 9.75V9Zm4.502 8.9a2.25 2.25 0 1 0 4.496 0 25.057 25.057 0 0 1-4.496 0Z'
@@ -116,7 +99,7 @@ const TopBar = ({ onShow }: { onShow: () => void }) => {
                     viewBox='0 0 24 24'
                     strokeWidth={1.5}
                     stroke='currentColor'
-                    className='size-6 text-foreground'
+                    className='size-6'
                   >
                     <path
                       strokeLinecap='round'
@@ -258,7 +241,7 @@ const TopBar = ({ onShow }: { onShow: () => void }) => {
                 viewBox='0 0 24 24'
                 strokeWidth={1.5}
                 stroke='currentColor'
-                className='size-6 text-foreground rotate-180'
+                className='size-6 rotate-180'
               >
                 <path
                   strokeLinecap='round'
@@ -270,7 +253,7 @@ const TopBar = ({ onShow }: { onShow: () => void }) => {
           </div>
         </div>
         <div className='py-1 px-3 border-b border-foreground-100   left-0 flex justify-between '>
-          <Link to={'/'}>
+          <Link className='w-max flex justify-center ' to={'/'}>
             <Button isIconOnly variant='light'>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
@@ -283,39 +266,42 @@ const TopBar = ({ onShow }: { onShow: () => void }) => {
               </svg>
             </Button>
           </Link>
+          <div className='flex-1 text-red-600 text-xs flex items-center'>
+            <marquee>
+              Company recently found a lot of agent’s downlines involved in different type of abnormal bet, fraud
+              (Hedging group betting, arbitrage betting, use mechanical betting, or any action will effect company
+              normal operating etc ). Hereby to inform all agents that if company discovers and determines any abnormal
+              bets on its members, Company will delete the tickets regardless of the settled bets before the company
+              settlement time without any notification. Company will not take any responsibility on the losses caused
+              after the ticket is deleted. Please pass this information to downlines, thank you for your cooperation.
+            </marquee>
+          </div>
         </div>
       </header>
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
-        <ModalContent>
-          {(onClose) => (
-            <div className={`  `}>
-              <ModalHeader className='flex flex-col gap-1  '>Help us improve</ModalHeader>
-              <ModalBody className=''>
-                <Textarea
-                  labelPlacement='outside'
-                  label="We'd love to hear from you. How are we doing?"
-                  variant='bordered'
-                  placeholder='What functions can be improved? What functions are lacking?'
-                  disableAnimation
-                  disableAutosize
-                  className='w-full '
-                  classNames={{
-                    input: 'resize-y min-h-[40px]'
-                  }}
-                />
-              </ModalBody>
-              <ModalFooter>
-                <Button variant='light' onPress={onClose}>
-                  Later
-                </Button>
-                <Button color='primary' onPress={onClose}>
-                  Submit
-                </Button>
-              </ModalFooter>
-            </div>
-          )}
-        </ModalContent>
-      </Modal>
+      <BaseModal isOpen={isOpen} onOpenChange={onOpenChange} title='Help us improve'>
+        <ModalBody className=''>
+          <Textarea
+            labelPlacement='outside'
+            label="We'd love to hear from you. How are we doing?"
+            variant='bordered'
+            placeholder='What functions can be improved? What functions are lacking?'
+            disableAnimation
+            disableAutosize
+            className='w-full '
+            classNames={{
+              input: 'resize-y min-h-[40px]'
+            }}
+          />
+        </ModalBody>
+        <ModalFooter>
+          <Button variant='light' onClick={onOpenChange}>
+            Later
+          </Button>
+          <Button color='primary' onClick={onOpenChange}>
+            Submit
+          </Button>
+        </ModalFooter>
+      </BaseModal>
     </>
   )
 }

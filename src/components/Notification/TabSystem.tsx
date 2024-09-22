@@ -28,6 +28,7 @@ const TabSystem = () => {
       <div className='py-2 px-2 flex justify-between items-center'>
         <Pagination
           showControls
+          size='sm'
           classNames={{
             cursor: 'bg-foreground text-background'
           }}
@@ -98,7 +99,7 @@ const TabSystem = () => {
           </TableBody>
         )}
       </Table>
-      <div className='flex items-center gap-4 mt-4'>
+      <div className='flex items-center gap-4 mt-4 flex-wrap'>
         <label className='flex items-center text-default-400 text-small'>
           <select
             className='bg-transparent px-2 py-1.5 border outline-none text-default-400 text-small'

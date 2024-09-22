@@ -15,6 +15,9 @@ import { reportsRoute } from './reportsRoute'
 import { betsForcastRoute } from './betsForcastRoute'
 import { betListsRoute } from './betListsRoute'
 import Telegram from '~/pages/Telegram'
+import AvailableDomains from '~/pages/AvailableDomains'
+import { riskManagementRoute } from './riskManagementRoute'
+import Transfer from '~/pages/Transfer'
 
 const useRouteElements = () => {
   function ProtecedRoute() {
@@ -101,9 +104,26 @@ const useRouteElements = () => {
             </ManagerLayout>
           )
         },
+        {
+          path: '/available-domains',
+          element: (
+            <ManagerLayout>
+              <AvailableDomains />
+            </ManagerLayout>
+          )
+        },
+        {
+          path: '/transfer',
+          element: (
+            <ManagerLayout>
+              <Transfer />
+            </ManagerLayout>
+          )
+        },
         ...reportsRoute,
         ...betsForcastRoute,
-        ...betListsRoute
+        ...betListsRoute,
+        ...riskManagementRoute
       ]
     },
     {
