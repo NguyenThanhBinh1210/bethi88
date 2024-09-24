@@ -86,3 +86,19 @@ td {
   padding-left: 8px;
   padding-right: 8px;
 }
+
+.table-style .p-4.z-0.flex.flex-col.relative {
+  // padding: 4px !important;
+  box-shadow: none;
+}
+
+.table-row-style1 td:first-child {
+  border-bottom-left-radius: 8px !important;
+  border-top-left-radius: 8px !important;
+  font-weight: 500;
+}
+
+.table-row-style1 td:last-child {
+  border-bottom-right-radius: 8px !important;
+  border-top-right-radius: 8px !important;
+}

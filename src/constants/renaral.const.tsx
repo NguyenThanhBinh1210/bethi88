@@ -109,43 +109,43 @@ export const menuCMS = [
     subMenu: [
       {
         title: 'New Agent',
-        path: '/products'
+        path: '/member-info/new-agent'
       },
       {
         title: 'Position Taking Template',
-        path: '/reviews'
+        path: '/member-info/position-taking-template'
       },
       {
         title: 'Sub Account',
-        path: '/products'
+        path: '/member-info/sub-account'
       },
       {
         title: 'Agent List',
-        path: '/reviews'
+        path: '/member-info/agent-list'
       },
       {
         title: 'Problem Account List',
-        path: '/products'
+        path: '/member-info/problem-account-list'
       },
       {
         title: 'Credit/Balance',
-        path: '/reviews'
+        path: '/member-info/credit-balance'
       },
       {
         title: 'Position Taking (%)',
-        path: '/products'
+        path: '/member-info/position-taking'
       },
       {
         title: 'Member Commission',
-        path: '/reviews'
+        path: '/member-info/member-commission'
       },
       {
         title: 'Indirect Login Account',
-        path: '/products'
+        path: '/member-info/indirect-login-account'
       },
       {
         title: 'Dormant Account List',
-        path: '/reviews'
+        path: '/member-info/dormant-account-list'
       }
     ]
   },

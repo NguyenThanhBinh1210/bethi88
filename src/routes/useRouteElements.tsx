@@ -1,6 +1,5 @@
 import { Navigate, Outlet, useRoutes } from 'react-router-dom'
 import NotFound from '~/pages/NotFound'
-import Register from '~/pages/Register'
 import Login from '~/pages/Login'
 import { AppContext } from '~/contexts/app.context'
 import LoginLayout from '~/layouts/LoginLayout'
@@ -18,6 +17,7 @@ import Telegram from '~/pages/Telegram'
 import AvailableDomains from '~/pages/AvailableDomains'
 import { riskManagementRoute } from './riskManagementRoute'
 import Transfer from '~/pages/Transfer'
+import { memberInfo } from './memberInfo'
 
 const useRouteElements = () => {
   function ProtecedRoute() {
@@ -38,14 +38,6 @@ const useRouteElements = () => {
           element: (
             <LoginLayout>
               <Login />
-            </LoginLayout>
-          )
-        },
-        {
-          path: 'register',
-          element: (
-            <LoginLayout>
-              <Register />
             </LoginLayout>
           )
         }
@@ -123,7 +115,8 @@ const useRouteElements = () => {
         ...reportsRoute,
         ...betsForcastRoute,
         ...betListsRoute,
-        ...riskManagementRoute
+        ...riskManagementRoute,
+        ...memberInfo
       ]
     },
     {

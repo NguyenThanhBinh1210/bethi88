@@ -9,7 +9,6 @@ import { AppContext } from '~/contexts/app.context'
 const SideBar = ({ isShow }: { isShow: boolean }) => {
   const { isSecurity } = useContext(AppContext)
   const location = useLocation().pathname
-  console.log(location)
   const navigate = useNavigate()
   return (
     <div
