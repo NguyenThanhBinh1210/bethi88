@@ -34,7 +34,7 @@ const MoveStatementHistory = () => {
           <div className='text-blue-600 bg-blue-200 rounded font-medium text-center h-12 flex items-center justify-center flex  py-2'>
             Total Members
           </div>
-          <div className='text-center py-2 font-medium'>0</div>
+          <div className='text-center py-2 font-medium '>0</div>
         </div>
         <div className='border rounded p-1 text-xs bg-blue-100 border-blue-200'>
           <div className='text-blue-600 bg-blue-200 rounded font-medium text-center h-12 flex items-center justify-center flex  py-2'>
