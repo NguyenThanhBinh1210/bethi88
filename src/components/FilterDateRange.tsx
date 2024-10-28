@@ -29,7 +29,7 @@ const FilterDateRange = () => {
           onChange={setValueTo}
         />
       </div>
-      <Button className='rounded' size='sm' color='primary'>
+      <Button size='sm' color='primary'>
         Submit
       </Button>
     </div>

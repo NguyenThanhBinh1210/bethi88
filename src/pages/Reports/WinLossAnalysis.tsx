@@ -1,12 +1,43 @@
-import { DateRangePicker } from '@nextui-org/react'
+import { Button, DateRangePicker } from '@nextui-org/react'
 import { parseDate } from '@internationalized/date'
 
 import SelectChecked from '~/components/SelectChecked'
+import SingleSelection from '~/components/SingleSelection'
+const options = [
+  {
+    value: 'today',
+    label: 'Today'
+  },
+  {
+    value: 'yesterday',
+    label: 'Yesterday'
+  },
+  {
+    value: 'last_7_days',
+    label: 'This Week'
+  },
+  {
+    value: 'last_30_days',
+    label: 'This Month'
+  },
+  {
+    value: 'last_90_days',
+    label: 'This Quarter'
+  },
+  {
+    value: 'last_year',
+    label: 'Last Year'
+  }
+]
 const WinLossAnalysis = () => {
   return (
     <div>
       <div className='mb-4 pb-3 border-b border-foreground-200 uppercase font-medium'>Win Loss Analysis</div>
       <div className='flex gap-2 md:gap-6 mb-4 flex-wrap'>
+        <div>
+          <p className='font-medium text-xs mb-2'>Product</p>
+          <SelectChecked />
+        </div>
         <DateRangePicker
           size='sm'
           variant='bordered'
@@ -18,26 +49,11 @@ const WinLossAnalysis = () => {
           }}
           label={<div className='font-medium text-xs'>Date Range</div>}
         />
-        <div>
-          <p className='font-medium text-xs mb-2'>Product</p>
-          <SelectChecked />
-        </div>
-        <div>
-          <p className='font-medium text-xs mb-2'>Product Details</p>
-          <SelectChecked />
-        </div>
-        <div>
-          <p className='font-medium text-xs mb-2'>Username</p>
-          <input
-            type='text'
-            className='border-2 border-foreground-200 text-xs py-[6.5px] rounded px-2'
-            placeholder='Username or First/ Last name'
-          />
-        </div>
-        <div>
-          <p className='font-medium text-xs mb-2'>Columns</p>
-          <SelectChecked />
-        </div>
+
+        <Button size='sm' variant='solid' color='primary' className='mt-auto'>
+          Submit
+        </Button>
+        <SingleSelection classNames={{ trigger: 'mt-auto' }} options={options} />
       </div>
       <div className='w-full overflow-auto text-xs '>
         <table className='table-auto w-full border-collapse mt-4'>

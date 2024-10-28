@@ -7,7 +7,7 @@ const AgentOutstanding = () => {
       <div className='mb-4 pb-3 border-b border-foreground-200 uppercase font-medium'>Agent Outstanding</div>
       <div className='flex items-center gap-4 mb-4'>
         <SelectChecked></SelectChecked>
-        <Button color='primary' className='rounded'>
+        <Button size='sm' color='primary' className='rounded'>
           Submit
         </Button>
       </div>

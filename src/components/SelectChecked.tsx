@@ -1,83 +1,191 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Popover, Checkbox, CheckboxGroup } from '@nextui-org/react'
+import { Popover, Checkbox, Input } from '@nextui-org/react'
 import { Button, PopoverContent, PopoverTrigger } from '@nextui-org/react'
-import { useEffect, useState } from 'react'
+import { useContext, useState, useEffect } from 'react'
+import { Accordion, AccordionItem } from '@nextui-org/react'
+import { AppContext } from '~/contexts/app.context'
+import CloseIcon from './icons/CloseIcon'
+interface Option {
+  label: string
+  value: string
+  children?: Option[]
+}
 
-const optionsList = [
+const optionsList: Option[] = [
   {
-    label: 'Option 1',
-    value: 'option1',
+    label: 'Live casino',
+    value: 'live-casino',
     children: [
-      { label: 'Sub-option 1.1', value: 'suboption1.1' },
-      { label: 'Sub-option 1.2', value: 'suboption1.2' }
+      { label: 'FGG', value: 'fgg' },
+      { label: 'Allbet', value: 'allbet' }
     ]
   },
   {
-    label: 'Option 2',
-    value: 'option2',
+    label: 'RNG',
+    value: 'rng',
     children: [
-      { label: 'Sub-option 2.1', value: 'suboption2.1' },
-      { label: 'Sub-option 2.2', value: 'suboption2.2' }
+      { label: 'Funky Games', value: 'funky-games' },
+      { label: 'Pragmatic Play', value: 'pragmatic-play' }
     ]
   },
   {
-    label: 'Option 3',
-    value: 'option3',
-    children: [] // Có thể có hoặc không có children
+    label: 'Sportsbook',
+    value: 'sportsbook',
+    children: []
   }
 ]
-const SelectChecked = () => {
-  const [selectedOptions, setSelectedOptions] = useState<any>([])
-  const [selectAll, setSelectAll] = useState<boolean>(false)
-  const handleOptionChange = (values: any) => {
-    setSelectedOptions(values)
+
+const SelectChecked = ({ options = optionsList, isSearch = false }: { options?: Option[]; isSearch?: boolean }) => {
+  const [checkedValues, setCheckedValues] = useState<string[]>([])
+  const [searchTerm, setSearchTerm] = useState('')
+  const [filteredOptions, setFilteredOptions] = useState(options)
+  const { isDark } = useContext(AppContext)
+
+  const getAllValues = (options: Option[]): string[] => {
+    return options.reduce((acc: string[], option) => {
+      if (option.children && option.children.length > 0) {
+        return [...acc, ...option.children.map((child) => child.value)]
+      }
+      return [...acc, option.value]
+    }, [])
   }
 
-  const renderOptions = (options: any) => {
-    return options.map((option: any) => (
-      <div key={option.value} className=''>
-        <Checkbox size='sm' value={option.value}>
-          {option.label}
-        </Checkbox>
-        {option.children && option.children.length > 0 && <div className='ml-4'>{renderOptions(option.children)}</div>}
-      </div>
-    ))
+  useEffect(() => {
+    const allValues = getAllValues(options)
+    setCheckedValues(allValues)
+  }, [])
+
+  // Handle search
+  useEffect(() => {
+    const filtered = options
+      .map((option) => {
+        if (option.label.toLowerCase().includes(searchTerm.toLowerCase())) {
+          return option
+        }
+        if (option.children?.some((child) => child.label.toLowerCase().includes(searchTerm.toLowerCase()))) {
+          return {
+            ...option,
+            children: option.children.filter((child) => child.label.toLowerCase().includes(searchTerm.toLowerCase()))
+          }
+        }
+        return null
+      })
+      .filter(Boolean) as Option[]
+
+    setFilteredOptions(filtered)
+  }, [searchTerm])
+
+  const handleCheckAll = () => {
+    const allValues = getAllValues(options)
+    setCheckedValues((prev) => {
+      if (allValues.every((value) => prev.includes(value))) {
+        return []
+      }
+      return allValues
+    })
   }
-  const getAllValues = (options: any) => {
-    let values: any = []
-    options.forEach((option: any) => {
-      values.push(option.value)
-      if (option.children) {
-        values = values.concat(getAllValues(option.children))
+
+  const handleCheck = (value: string) => {
+    setCheckedValues((prev) => {
+      if (prev.includes(value)) {
+        return prev.filter((v) => v !== value)
+      }
+      return [...prev, value]
+    })
+  }
+
+  const handleParentCheck = (option: Option) => {
+    const childValues = option.children?.map((child) => child.value) || []
+
+    setCheckedValues((prev) => {
+      const allChildrenChecked = childValues.every((value) => prev.includes(value))
+
+      if (allChildrenChecked) {
+        return prev.filter((v) => !childValues.includes(v))
+      } else {
+        const newValues = [...prev]
+        childValues.forEach((value) => {
+          if (!newValues.includes(value)) {
+            newValues.push(value)
+          }
+        })
+        return newValues
       }
     })
-    return values
   }
-  const allValues = getAllValues(optionsList)
-  const handleSelectAllChange = () => {
-    if (selectAll) {
-      setSelectedOptions([])
-    } else {
-      setSelectedOptions(allValues)
+
+  const renderOption = (option: Option) => {
+    const hasChildren = option.children && option.children.length > 0
+
+    const highlightText = (text: string) => {
+      if (!searchTerm) return text
+      const parts = text.split(new RegExp(`(${searchTerm})`, 'gi'))
+      return parts.map((part, i) =>
+        part.toLowerCase() === searchTerm.toLowerCase() ? (
+          <span key={i} className='text-blue-600'>
+            {part}
+          </span>
+        ) : (
+          part
+        )
+      )
     }
-    setSelectAll(!selectAll)
+
+    return (
+      <div key={option.value} className=''>
+        {hasChildren ? (
+          <Accordion defaultExpandedKeys={['1']} className=''>
+            <AccordionItem
+              key='1'
+              title={
+                <div className='flex items-center gap-2'>
+                  <Checkbox
+                    size='sm'
+                    className='p-0'
+                    isSelected={option.children?.every((child) => checkedValues.includes(child.value))}
+                    onValueChange={() => handleParentCheck(option)}
+                  />
+                  <p className='text-[16px]'>{highlightText(option.label)}</p>
+                </div>
+              }
+            >
+              <div className='children-options pl-2 overflow-hidden'>
+                {option.children?.map((child) => (
+                  <div key={child.value}>
+                    <Checkbox
+                      size='sm'
+                      isSelected={checkedValues.includes(child.value)}
+                      onValueChange={() => handleCheck(child.value)}
+                    >
+                      {highlightText(child.label)}
+                    </Checkbox>
+                  </div>
+                ))}
+              </div>
+            </AccordionItem>
+          </Accordion>
+        ) : (
+          <Checkbox
+            size='sm'
+            isSelected={checkedValues.includes(option.value)}
+            onValueChange={() => handleCheck(option.value)}
+          >
+            {highlightText(option.label)}
+          </Checkbox>
+        )}
+      </div>
+    )
   }
-  useEffect(() => {
-    if (selectedOptions.length === allValues.length) {
-      setSelectAll(true)
-    } else {
-      setSelectAll(false)
-    }
-  }, [selectedOptions])
+
   return (
-    <Popover>
+    <Popover placement='bottom-start' className={` text-foreground ${isDark && 'dark'}  `}>
       <PopoverTrigger>
         <Button size='sm' className='rounded border-2 bg-foreground-50 border-foreground-200'>
           <div className='flex justify-between gap-x-3 items-center'>
-            {selectedOptions.length === allValues.length
-              ? `All Product (${allValues.length})`
-              : selectedOptions.length > 0
-                ? `${selectedOptions.length} selected`
+            {checkedValues.length === getAllValues(optionsList).length
+              ? `All Product (${getAllValues(optionsList).length})`
+              : checkedValues.length > 0
+                ? `${checkedValues.length} selected`
                 : 'Select options'}
             <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' className='size-3'>
               <path
@@ -89,14 +197,37 @@ const SelectChecked = () => {
           </div>
         </Button>
       </PopoverTrigger>
-      <PopoverContent className='rounded-none items-start'>
-        <Checkbox size='sm' className='' isSelected={selectAll} onChange={handleSelectAllChange}>
-          Select All
-        </Checkbox>
-
-        <CheckboxGroup value={selectedOptions} onChange={handleOptionChange}>
-          {renderOptions(optionsList)}
-        </CheckboxGroup>
+      <PopoverContent className='items-start min-w-40 bg-foreground-100 p-0 '>
+        <div className='select-checked w-full p-2.5 '>
+          {isSearch && (
+            <Input
+              endContent={<CloseIcon onClick={() => setSearchTerm('')} className='size-4 cursor-pointer' />}
+              type='text'
+              size='sm'
+              variant='bordered'
+              className='mb-2 text-foreground'
+              placeholder='Search product'
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          )}
+          {filteredOptions.length > 0 ? (
+            <>
+              <div className='check-all-option'>
+                <Checkbox
+                  size='sm'
+                  onValueChange={handleCheckAll}
+                  isSelected={getAllValues(optionsList).every((value) => checkedValues.includes(value))}
+                >
+                  Select all
+                </Checkbox>
+              </div>
+              {filteredOptions.map((option) => renderOption(option))}
+            </>
+          ) : (
+            <div className='text-center py-1 text-sm text-gray-500'>No product Found</div>
+          )}
+        </div>
       </PopoverContent>
     </Popover>
   )

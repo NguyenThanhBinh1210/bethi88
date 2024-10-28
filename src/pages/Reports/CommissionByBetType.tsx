@@ -1,30 +1,27 @@
-import { Select, SelectItem } from '@nextui-org/react'
-import { useState } from 'react'
 import FilterDateRange from '~/components/FilterDateRange'
-import { animals } from '~/constants/renaral.const'
+import SingleSelection from '~/components/SingleSelection'
 
-const CommissionByBetType = () => {
-  const [value, setValue] = useState<string>('cat')
-
-  const handleSelectionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setValue(e.target.value)
+const options = [
+  {
+    value: 'today',
+    label: 'Today'
+  },
+  {
+    value: 'yesterday',
+    label: 'Yesterday'
+  },
+  {
+    value: 'last_7_days',
+    label: 'This Week'
   }
+]
+const CommissionByBetType = () => {
   return (
     <div>
       <div className='mb-4 pb-3 border-b border-foreground-200 uppercase font-medium'>Commission By Bet Type</div>
       <div className='flex gap-2 md:gap-6 flex-wrap'>
         <FilterDateRange />
-        <Select
-          selectedKeys={[value]}
-          onChange={handleSelectionChange}
-          size='sm'
-          color='primary'
-          className='max-w-40 !rounded bg-background'
-        >
-          {animals.map((animal) => (
-            <SelectItem key={animal.value}>{animal.label}</SelectItem>
-          ))}
-        </Select>
+        <SingleSelection options={options} />
       </div>
       <p className='text-xs mt-3'>
         <span className='text-red-500'>*</span> You can view the report data from 01/01/2021

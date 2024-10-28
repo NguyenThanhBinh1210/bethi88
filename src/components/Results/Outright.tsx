@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Autocomplete, AutocompleteItem, DateRangePicker } from '@nextui-org/react'
+import { Autocomplete, AutocompleteItem, Button, DateRangePicker } from '@nextui-org/react'
 import { useState } from 'react'
 import { animals } from '~/constants/renaral.const'
 
@@ -9,13 +9,18 @@ const Outright = () => {
 
   return (
     <div>
-      <DateRangePicker
-        className='w-max'
-        variant='bordered'
-        size='sm'
-        label='Date'
-        labelPlacement='outside-left'
-      ></DateRangePicker>
+      <div className='flex gap-2 md:gap-6 flex-wrap'>
+        <DateRangePicker
+          className='w-max'
+          variant='bordered'
+          size='sm'
+          label='Date'
+          labelPlacement='outside-left'
+        ></DateRangePicker>
+        <Button size='sm' color='primary'>
+          Submit
+        </Button>
+      </div>
       <p className='mt-3 text-xs'>
         <span className='text-red-600'>*</span>You can view the report data from 09/13/2024.
       </p>

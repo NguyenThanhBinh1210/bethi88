@@ -2,11 +2,14 @@
 import {
   Button,
   Checkbox,
+  Input,
   Listbox,
   ListboxItem,
   Popover,
   PopoverContent,
   PopoverTrigger,
+  Select,
+  SelectItem,
   Table,
   TableBody,
   TableCell,
@@ -15,6 +18,7 @@ import {
   TableRow
 } from '@nextui-org/react'
 import { useState } from 'react'
+import { animals } from '~/constants/renaral.const'
 
 const AgentList = () => {
   const [selectedKeys, setSelectedKeys] = useState(new Set(['text']))
@@ -22,6 +26,50 @@ const AgentList = () => {
   return (
     <div>
       <div className='mb-4 pb-3 border-b border-foreground-200 uppercase font-medium'>Agent List</div>
+      <div className='flex flex-wrap gap-4 mb-4 flex-row'>
+        <div>
+          <Input
+            label='Username'
+            labelPlacement='outside-left'
+            size='sm'
+            variant='bordered'
+            id='username'
+            type='text'
+            placeholder='Search by username'
+          />
+        </div>
+        <div>
+          <Select
+            className='flex items-center min-w-[200px]'
+            size='sm'
+            variant='bordered'
+            labelPlacement={'outside-left'}
+            label='Status'
+            placeholder='Status'
+          >
+            {animals.map((animal) => (
+              <SelectItem key={animal.value}>{animal.label}</SelectItem>
+            ))}
+          </Select>
+        </div>
+        <div>
+          <Select
+            className='flex items-center min-w-[240px] w-max'
+            size='sm'
+            variant='bordered'
+            labelPlacement={'outside-left'}
+            label={<p className='text-xs w-20'>Double Comm</p>}
+            placeholder='Double Comm'
+          >
+            {animals.map((animal) => (
+              <SelectItem key={animal.value}>{animal.label}</SelectItem>
+            ))}
+          </Select>
+        </div>
+        <Button color='primary' size='sm'>
+          Submit
+        </Button>
+      </div>
       <Table aria-label='Example static collection table'>
         <TableHeader>
           {Array(14)

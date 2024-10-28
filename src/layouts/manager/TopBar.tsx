@@ -12,13 +12,14 @@ import {
   useDisclosure
 } from '@nextui-org/react'
 import { useContext, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import BaseModal from '~/components/modals/BaseModal'
 import { AppContext } from '~/contexts/app.context'
 import { setDarkModeFromLS } from '~/utils/auth'
 
 const TopBar = ({ onShow }: { onShow: () => void }) => {
-  const { isDark, setDark } = useContext(AppContext)
+  const { isDark, setDark, isSecurity } = useContext(AppContext)
+  const navigate = useNavigate()
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
   const [isInvisible] = useState<boolean>(false)
   return (
@@ -112,9 +113,17 @@ const TopBar = ({ onShow }: { onShow: () => void }) => {
               <PopoverContent className='p-1  '>
                 <ul className='w-[220px] '>
                   <li>
-                    <Link
-                      className='flex items-center hover:bg-foreground-400 rounded-lg py-2 px-3 transition-all hover:text-white gap-x-2 text-[13px]'
-                      to={'/'}
+                    <button
+                      className='flex w-full items-center hover:bg-foreground-400 rounded-lg py-2 px-3 transition-all hover:text-white gap-x-2 text-[13px]'
+                      onClick={() => {
+                        isSecurity
+                          ? navigate('/profile', {
+                              state: {
+                                tabValue: 'profile-settings'
+                              }
+                            })
+                          : navigate('/security-code')
+                      }}
                     >
                       <svg
                         xmlns='http://www.w3.org/2000/svg'
@@ -129,12 +138,20 @@ const TopBar = ({ onShow }: { onShow: () => void }) => {
                         />
                       </svg>
                       Profile Settings
-                    </Link>
+                    </button>
                   </li>
                   <li>
-                    <Link
-                      className='flex items-center hover:bg-foreground-400 rounded-lg py-2 px-3 transition-all hover:text-white gap-x-2 text-[13px]'
-                      to={'/'}
+                    <button
+                      className='flex w-full items-center hover:bg-foreground-400 rounded-lg py-2 px-3 transition-all hover:text-white gap-x-2 text-[13px]'
+                      onClick={() => {
+                        isSecurity
+                          ? navigate('/profile', {
+                              state: {
+                                tabValue: 'password'
+                              }
+                            })
+                          : navigate('/security-code')
+                      }}
                     >
                       <svg
                         xmlns='http://www.w3.org/2000/svg'
@@ -149,12 +166,20 @@ const TopBar = ({ onShow }: { onShow: () => void }) => {
                         />
                       </svg>
                       Password
-                    </Link>
+                    </button>
                   </li>
                   <li>
-                    <Link
-                      className='flex items-center hover:bg-foreground-400 rounded-lg py-2 px-3 transition-all hover:text-white gap-x-2 text-[13px]'
-                      to={'/'}
+                    <button
+                      className='flex w-full items-center hover:bg-foreground-400 rounded-lg py-2 px-3 transition-all hover:text-white gap-x-2 text-[13px]'
+                      onClick={() => {
+                        isSecurity
+                          ? navigate('/profile', {
+                              state: {
+                                tabValue: 'security-code'
+                              }
+                            })
+                          : navigate('/security-code')
+                      }}
                     >
                       <svg
                         xmlns='http://www.w3.org/2000/svg'
@@ -169,12 +194,20 @@ const TopBar = ({ onShow }: { onShow: () => void }) => {
                         />
                       </svg>
                       Security Code
-                    </Link>
+                    </button>
                   </li>
                   <li>
-                    <Link
-                      className='flex items-center hover:bg-foreground-400 rounded-lg py-2 px-3 transition-all hover:text-white gap-x-2 text-[13px]'
-                      to={'/'}
+                    <button
+                      className='flex w-full items-center hover:bg-foreground-400 rounded-lg py-2 px-3 transition-all hover:text-white gap-x-2 text-[13px]'
+                      onClick={() => {
+                        isSecurity
+                          ? navigate('/profile', {
+                              state: {
+                                tabValue: 'otp'
+                              }
+                            })
+                          : navigate('/security-code')
+                      }}
                     >
                       <svg
                         xmlns='http://www.w3.org/2000/svg'
@@ -189,7 +222,7 @@ const TopBar = ({ onShow }: { onShow: () => void }) => {
                         />
                       </svg>
                       OTP
-                    </Link>
+                    </button>
                   </li>
                   <li>
                     <Link
@@ -212,9 +245,17 @@ const TopBar = ({ onShow }: { onShow: () => void }) => {
                     </Link>
                   </li>
                   <li>
-                    <Link
-                      className='flex items-center hover:bg-foreground-400 rounded-lg py-2 px-3 transition-all hover:text-white gap-x-2 text-[13px]'
-                      to={'/'}
+                    <button
+                      className='flex w-full items-center hover:bg-foreground-400 rounded-lg py-2 px-3 transition-all hover:text-white gap-x-2 text-[13px]'
+                      onClick={() => {
+                        isSecurity
+                          ? navigate('/profile', {
+                              state: {
+                                tabValue: 'protection-code'
+                              }
+                            })
+                          : navigate('/security-code')
+                      }}
                     >
                       <svg
                         xmlns='http://www.w3.org/2000/svg'
@@ -229,7 +270,7 @@ const TopBar = ({ onShow }: { onShow: () => void }) => {
                         />
                       </svg>
                       Protection Code
-                    </Link>
+                    </button>
                   </li>
                 </ul>
               </PopoverContent>

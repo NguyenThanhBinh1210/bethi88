@@ -1,6 +1,21 @@
 import FilterDateRange from '~/components/FilterDateRange'
 import SelectChecked from '~/components/SelectChecked'
+import SingleSelection from '~/components/SingleSelection'
 
+const options = [
+  {
+    value: 'today',
+    label: 'Today'
+  },
+  {
+    value: 'yesterday',
+    label: 'Yesterday'
+  },
+  {
+    value: 'last_7_days',
+    label: 'This Week'
+  }
+]
 const ProgressiveGamesContribution = () => {
   return (
     <div>
@@ -10,6 +25,7 @@ const ProgressiveGamesContribution = () => {
       <div className='flex items-center gap-2 md:gap-6 mb-4 flex-wrap'>
         <SelectChecked />
         <FilterDateRange />
+        <SingleSelection options={options} />
       </div>
       <div className='w-full overflow-auto text-xs '>
         <table className='table-auto w-full border-collapse mt-4'>

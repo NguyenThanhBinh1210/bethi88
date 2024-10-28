@@ -1,7 +1,8 @@
-import { DateRangePicker } from '@nextui-org/react'
+import { DateRangePicker, Input } from '@nextui-org/react'
 import { parseDate } from '@internationalized/date'
 
 import SelectChecked from '~/components/SelectChecked'
+
 const AgentWinLossDetail = () => {
   return (
     <div>
@@ -20,7 +21,7 @@ const AgentWinLossDetail = () => {
         />
         <div>
           <p className='font-medium text-xs mb-2'>Product</p>
-          <SelectChecked />
+          <SelectChecked isSearch />
         </div>
         <div>
           <p className='font-medium text-xs mb-2'>Product Details</p>
@@ -28,11 +29,7 @@ const AgentWinLossDetail = () => {
         </div>
         <div>
           <p className='font-medium text-xs mb-2'>Username</p>
-          <input
-            type='text'
-            className='border-2 border-foreground-200 text-xs py-[6.5px] rounded px-2'
-            placeholder='Username or First/ Last name'
-          />
+          <Input size='sm' variant='bordered' className='max-w-52' placeholder='Username or First/ Last name' />
         </div>
         <div>
           <p className='font-medium text-xs mb-2'>Columns</p>

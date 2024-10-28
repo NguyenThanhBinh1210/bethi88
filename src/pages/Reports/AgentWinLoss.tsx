@@ -1,6 +1,33 @@
 import { Chip } from '@nextui-org/react'
 import FilterDateRange from '~/components/FilterDateRange'
+import SingleSelection from '~/components/SingleSelection'
 
+const options = [
+  {
+    value: 'today',
+    label: 'Today'
+  },
+  {
+    value: 'yesterday',
+    label: 'Yesterday'
+  },
+  {
+    value: 'last_7_days',
+    label: 'This Week'
+  },
+  {
+    value: 'last_30_days',
+    label: 'This Month'
+  },
+  {
+    value: 'last_90_days',
+    label: 'This Quarter'
+  },
+  {
+    value: 'last_year',
+    label: 'Last Year'
+  }
+]
 const AgentWinLoss = () => {
   return (
     <div>
@@ -49,7 +76,10 @@ const AgentWinLoss = () => {
         </Chip>
       </div>
       <div className='mb-4 pb-3 border-b border-foreground-200 uppercase font-medium'>Agent Win Loss</div>
-      <FilterDateRange />
+      <div className='flex gap-x-5 items-center flex-wrap'>
+        <FilterDateRange />
+        <SingleSelection options={options} />
+      </div>
     </div>
   )
 }
