@@ -1,14 +1,37 @@
 import { Button, Checkbox, Input } from '@nextui-org/react'
 import { useContext, useState } from 'react'
+import { useMutation } from '@tanstack/react-query'
 import { AppContext } from '~/contexts/app.context'
 import { setDarkModeFromLS } from '~/utils/auth'
+import { loginAccount } from '~/apis/auth.api'
+
 const Login = () => {
   const { isDark, setDark } = useContext(AppContext)
   const [showPassword, setShowPassword] = useState<boolean>(false)
+  const [username, setUsername] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
+  const loginMutation = useMutation({
+    mutationFn: (body: { username: string; password: string }) => loginAccount(body),
+    onSuccess: () => {
+      alert('Login successfully')
+    }
+  })
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    loginMutation.mutate({
+      username,
+      password
+    })
+  }
+
 
   return (
     <div className='w-full h-screen flex items-center justify-center px-5'>
-      <form className='border w-full max-w-md border-foreground-300 rounded-md p-4 bg-background dark:bg-foreground-100'>
+      <form
+        onSubmit={handleSubmit}
+        className='border w-full max-w-md border-foreground-300 rounded-md p-4 bg-background dark:bg-foreground-100'
+      >
         <div className='flex justify-end'>
           <Button
             isIconOnly
@@ -24,20 +47,33 @@ const Login = () => {
           </Button>
         </div>
         <h1 className='text-2xl text-center'>Login</h1>
-        <Input className='mb-4' variant='underlined' placeholder='Username' autoFocus></Input>
+        <Input
+          className='mb-4'
+          variant='underlined'
+          placeholder='Username'
+          autoFocus
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
         <Input
           className='mb-4'
           variant='underlined'
           placeholder='Password'
           type={showPassword ? 'text' : 'password'}
-          autoFocus
-        ></Input>
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
         <div>
           <Checkbox checked={showPassword} onChange={() => setShowPassword(!showPassword)} color='default'>
             <div className='text-sm'>Show password</div>
           </Checkbox>
         </div>
-        <Button color='primary' className='w-full mt-5 uppercase rounded-none bg-foreground-400 font-medium'>
+        <Button
+          color='primary'
+          className='w-full mt-5 uppercase rounded-none bg-foreground-400 font-medium'
+          type='submit'
+          isLoading={loginMutation.isPending}
+        >
           Login
         </Button>
       </form>

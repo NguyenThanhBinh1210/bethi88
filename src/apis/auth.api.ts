@@ -1,10 +1,10 @@
-import { AuthResponse } from 'src/types/auth.type'
+import { LoginResponse, RefreshTokenResponse } from '~/types/auth.type'
 import http from '~/utils/http'
 
-export const registerAccount = (body: {
-  name: string
-  email: string
-  password: string
-  confirmPassword: string
-  otp: string
-}) => http.post<AuthResponse>('/user/sign-up', body)
+export const loginAccount = (body: { username: string; password: string }): Promise<LoginResponse> => {
+  return http.post('/auth/login', body)
+}
+
+export const refreshToken = (body: { refreshToken: string }): Promise<RefreshTokenResponse> => {
+  return http.post('/auth/refresh-token', body)
+}

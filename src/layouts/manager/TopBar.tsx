@@ -15,13 +15,21 @@ import { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import BaseModal from '~/components/modals/BaseModal'
 import { AppContext } from '~/contexts/app.context'
-import { setDarkModeFromLS } from '~/utils/auth'
+import { Profile } from '~/types/auth.type'
+import { clearLS, setDarkModeFromLS, setProfileFromLS } from '~/utils/auth'
 
 const TopBar = ({ onShow }: { onShow: () => void }) => {
   const { isDark, setDark, isSecurity } = useContext(AppContext)
   const navigate = useNavigate()
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
   const [isInvisible] = useState<boolean>(false)
+  const handleLogout = () => {
+    clearLS()
+    setProfileFromLS({} as Profile)
+    alert('Logout successfully')
+    window.location.href = '/login'
+
+  }
   return (
     <>
       <header style={{ zIndex: 19 }} className='sticky top-0 !transition-all duration-500 bg-white dark:bg-black'>
@@ -118,10 +126,10 @@ const TopBar = ({ onShow }: { onShow: () => void }) => {
                       onClick={() => {
                         isSecurity
                           ? navigate('/profile', {
-                              state: {
-                                tabValue: 'profile-settings'
-                              }
-                            })
+                            state: {
+                              tabValue: 'profile-settings'
+                            }
+                          })
                           : navigate('/security-code')
                       }}
                     >
@@ -146,10 +154,10 @@ const TopBar = ({ onShow }: { onShow: () => void }) => {
                       onClick={() => {
                         isSecurity
                           ? navigate('/profile', {
-                              state: {
-                                tabValue: 'password'
-                              }
-                            })
+                            state: {
+                              tabValue: 'password'
+                            }
+                          })
                           : navigate('/security-code')
                       }}
                     >
@@ -174,10 +182,10 @@ const TopBar = ({ onShow }: { onShow: () => void }) => {
                       onClick={() => {
                         isSecurity
                           ? navigate('/profile', {
-                              state: {
-                                tabValue: 'security-code'
-                              }
-                            })
+                            state: {
+                              tabValue: 'security-code'
+                            }
+                          })
                           : navigate('/security-code')
                       }}
                     >
@@ -202,10 +210,10 @@ const TopBar = ({ onShow }: { onShow: () => void }) => {
                       onClick={() => {
                         isSecurity
                           ? navigate('/profile', {
-                              state: {
-                                tabValue: 'otp'
-                              }
-                            })
+                            state: {
+                              tabValue: 'otp'
+                            }
+                          })
                           : navigate('/security-code')
                       }}
                     >
@@ -250,10 +258,10 @@ const TopBar = ({ onShow }: { onShow: () => void }) => {
                       onClick={() => {
                         isSecurity
                           ? navigate('/profile', {
-                              state: {
-                                tabValue: 'protection-code'
-                              }
-                            })
+                            state: {
+                              tabValue: 'protection-code'
+                            }
+                          })
                           : navigate('/security-code')
                       }}
                     >
@@ -275,7 +283,7 @@ const TopBar = ({ onShow }: { onShow: () => void }) => {
                 </ul>
               </PopoverContent>
             </Popover>
-            <Button isIconOnly variant='light'>
+            <Button isIconOnly variant='light' onClick={handleLogout}>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
                 fill='none'

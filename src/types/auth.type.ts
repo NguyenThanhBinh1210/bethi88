@@ -1,18 +1,44 @@
+import { ROLES } from './role.type'
 import { ResponseApi } from './utils.type'
 
 export interface Profile {
-  name: string
-  username: string
+  accountStatus: number
+  avt: string | null
+  createdAt: string
   email: string
+  fullName: string
+  lastLoginAt: string | null
+  mobile: string | null
+  parentId: string | null
+  role: ROLES
+  updatedAt: string
+  username: string
+  walletBalance: number
+  _id: string
 }
 
 export type AuthResponse = ResponseApi<{
-  name?: string
-  email?: string
-  password?: string
-  isAdmin?: boolean
-  role?: string
-  _id?: string
-  createdAt?: string
-  updatedAt?: string
+  userInfos?: Profile
+  tokenInfos?: {
+    accessToken: string
+    refreshToken: string
+  }
 }>
+
+interface TokenInfo {
+  accessToken: string
+  refreshToken: string
+}
+
+export interface LoginResponse {
+  data: {
+    userInfos: Profile
+    tokenInfos: TokenInfo
+  }
+  statusCode: number
+}
+
+export interface RefreshTokenResponse {
+  data: TokenInfo
+  statusCode: number
+}
