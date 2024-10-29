@@ -4,21 +4,38 @@ import { useMutation } from '@tanstack/react-query'
 import { AppContext } from '~/contexts/app.context'
 import { setDarkModeFromLS } from '~/utils/auth'
 import { loginAccount } from '~/apis/auth.api'
+import { useForm } from 'react-hook-form'
+import { LoginBody, LoginBodyType } from '~/schemaValidations/auth.schema'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 const Login = () => {
   const { isDark, setDark } = useContext(AppContext)
   const [showPassword, setShowPassword] = useState<boolean>(false)
   const [username, setUsername] = useState<string>('')
   const [password, setPassword] = useState<string>('')
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm<LoginBodyType>({
+    resolver: zodResolver(LoginBody),
+    defaultValues: {
+      username: '',
+      password: ''
+    }
+  })
+
   const loginMutation = useMutation({
     mutationFn: (body: { username: string; password: string }) => loginAccount(body),
     onSuccess: () => {
       alert('Login successfully')
+    },
+    onError: () => {
+      alert('Login failed')
     }
   })
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
+  const onSubmit = ({ username, password }: LoginBodyType) => {
     loginMutation.mutate({
       username,
       password
@@ -29,7 +46,7 @@ const Login = () => {
   return (
     <div className='w-full h-screen flex items-center justify-center px-5'>
       <form
-        onSubmit={handleSubmit}
+        onSubmit={handleSubmit(onSubmit)}
         className='border w-full max-w-md border-foreground-300 rounded-md p-4 bg-background dark:bg-foreground-100'
       >
         <div className='flex justify-end'>
@@ -53,7 +70,13 @@ const Login = () => {
           placeholder='Username'
           autoFocus
           value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          {...register('username')}
+          onChange={(e) => {
+            setUsername(e.target.value)
+            errors.username = undefined
+          }}
+          errorMessage={errors.username?.message}
+          isInvalid={Boolean(errors.username)}
         />
         <Input
           className='mb-4'
@@ -61,7 +84,13 @@ const Login = () => {
           placeholder='Password'
           type={showPassword ? 'text' : 'password'}
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          {...register('password')}
+          onChange={(e) => {
+            setPassword(e.target.value)
+            errors.password = undefined
+          }}
+          errorMessage={errors.password?.message}
+          isInvalid={Boolean(errors.password)}
         />
         <div>
           <Checkbox checked={showPassword} onChange={() => setShowPassword(!showPassword)} color='default'>

@@ -47,7 +47,7 @@ function createHttp(): AxiosInstance {
           setProfileFromLS(dataProfile)
           setAccesTokenToLS(accessToken)
           setRefreshTokenToLS(refreshToken)
-          window.location.href = '/'
+          // window.location.href = '/'
         }
       } else if (url === '/auth/log-out') {
         accessToken = ''
