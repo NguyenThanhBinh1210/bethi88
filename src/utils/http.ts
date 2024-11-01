@@ -15,7 +15,7 @@ function createHttp(): AxiosInstance {
   let refreshTokenRequest: Promise<string> | null = null
 
   const instance = axios.create({
-    baseURL: 'http://bong88-stg-api.nccdmm.fun/api/',
+    baseURL: 'http://127.0.0.1:6677/api/',
     timeout: 10000,
     headers: {
       'Content-Type': 'application/json'

@@ -7,8 +7,11 @@ import { loginAccount } from '~/apis/auth.api'
 import { useForm } from 'react-hook-form'
 import { LoginBody, LoginBodyType } from '~/schemaValidations/auth.schema'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
+  const navigate = useNavigate()
+
   const { isDark, setDark } = useContext(AppContext)
   const [showPassword, setShowPassword] = useState<boolean>(false)
   const [username, setUsername] = useState<string>('')
@@ -28,7 +31,12 @@ const Login = () => {
   const loginMutation = useMutation({
     mutationFn: (body: { username: string; password: string }) => loginAccount(body),
     onSuccess: () => {
+      setTimeout(() => {
+        window.location.reload()
+      }, 500)
+      navigate('/')
       alert('Login successfully')
+     
     },
     onError: () => {
       alert('Login failed')

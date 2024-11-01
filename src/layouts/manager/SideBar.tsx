@@ -7,7 +7,7 @@ import { Tabs, Tab } from '@nextui-org/react'
 import { useContext } from 'react'
 import { AppContext } from '~/contexts/app.context'
 const SideBar = ({ isShow }: { isShow: boolean }) => {
-  const { isSecurity } = useContext(AppContext)
+  const { isSecurity ,profile} = useContext(AppContext)
   const location = useLocation().pathname
   const navigate = useNavigate()
   return (
@@ -23,7 +23,7 @@ const SideBar = ({ isShow }: { isShow: boolean }) => {
             <Avatar className='flex-shrink-0' isBordered src='https://i.pravatar.cc/150?u=a042581f4e29026024d' />
           </Link>
           <div className=' uppercase'>
-            <p className='text-xs'> Bình</p>
+            <p className='text-xs'> {profile?.username}</p>
             <p className='text-xs'>IBETCOIN</p>
             <p className='text-xs'>OTP: Disabled</p>
           </div>
