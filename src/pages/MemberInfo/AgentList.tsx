@@ -15,8 +15,26 @@ import {
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { getAccount } from '~/apis/user.api'
+import SingleSelection from '~/components/SingleSelection'
 import { animals } from '~/constants/renaral.const'
-
+const options = [
+  {
+    value: '10',
+    label: '10'
+  },
+  {
+    value: '50',
+    label: '50'
+  },
+  {
+    value: '100',
+    label: '100'
+  },
+  {
+    value: '500',
+    label: '500'
+  },
+]
 const AgentList = () => {
   const [selectedKeys, setSelectedKeys] = useState(new Set(['text']))
   const [accountRes, setAccountRes] = useState<any>()
@@ -35,15 +53,19 @@ const AgentList = () => {
     }
   }, [data, isSuccess])
 
-  const createAccount = useMutation({
-    mutationFn: (params: { limit?: number; page: number }) => getAccount(params),
+  const changeParams = useMutation({
+    mutationFn: (params: { limit?: number; page?: number }) => getAccount(params),
     onSuccess: (data) => {
       setAccountRes(data?.data.data)
     }
   })
   const handleChangePage = (page: number) => {
-    createAccount.mutate({ page: page })
+    changeParams.mutate({ page: page })
   }
+  const handleChangeLimit = (limit: number | string) => {
+    changeParams.mutate({ limit: Number(limit) })
+  }
+
   if (isLoading) return <p>Đang tải dữ liệu lần đầu...</p>;
   return (
     <div>
@@ -91,6 +113,11 @@ const AgentList = () => {
         <Button color='primary' size='sm'>
           Submit
         </Button>
+        <div className='space-x-2 ml-auto'>
+          <span className='text-xs'>Page size</span>
+          <SingleSelection options={options} onChange={handleChangeLimit} color='default'></SingleSelection>
+        </div>
+
       </div>
       <div className='w-full overflow-auto text-xs '>
         <table className='table-auto w-full border-collapse mt-4'>
@@ -154,7 +181,7 @@ const AgentList = () => {
               <Spinner color="primary" />
             )}
             {accountRes?.results.map((item: any, index: number) => (
-              <tr key={item._id} className='bg-foreground/5 dark:bg-foreground/10'>
+              <tr key={item._id} className='odd:bg-foreground/5 odd:dark:bg-foreground/10'>
                 <td rowSpan={1} className={`py-2 text-center border border-foreground-400`}>
                   <span className=''>{accountRes?.limit * (accountRes?.page - 1) + index + 1}</span>
                 </td>
@@ -257,9 +284,11 @@ const AgentList = () => {
           </tbody>
         </table>
       </div>
-      <div className='flex items-center justify-center mt-5'>
-        <Pagination isCompact showControls total={accountRes?.totalPages} onChange={handleChangePage} initialPage={1} />
-      </div>
+      {accountRes?.totalPages > 1 &&
+        <div className='flex items-center justify-center mt-5'>
+          <Pagination isCompact showControls total={accountRes?.totalPages} onChange={handleChangePage} initialPage={1} />
+        </div>
+      }
     </div>
   )
 }

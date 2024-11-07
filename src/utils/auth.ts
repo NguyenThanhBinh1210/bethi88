@@ -9,6 +9,7 @@ export const setRefreshTokenToLS = (refresh_token: string) => {
 
 export const clearLS = () => {
   localStorage.removeItem('access_token')
+  localStorage.removeItem('refresh_token')
   localStorage.removeItem('profile')
 }
 

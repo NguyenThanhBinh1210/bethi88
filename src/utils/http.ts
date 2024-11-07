@@ -55,33 +55,35 @@ function createHttp(): AxiosInstance {
         clearLS()
       }
       return response
+    },
+    (error) => {
+      alert('Phiên đăng nhập hết hạn')
+      // const config = error.response?.config || {}
+      // const { url } = config
+      // if (url !== '/auth/refresh-token') {
+      //   // alert('Phiên đăng nhập hết hạn')
+      //   refreshTokenRequest = refreshTokenRequest
+      //     ? refreshTokenRequest
+      //     : handleRefreshToken().finally(() => {
+      //         refreshTokenRequest = null
+      //       })
+      //   return refreshTokenRequest.then((access_token: string) => {
+      //     console.log(access_token)
+      //     return instance({ ...config, headers: { ...config.headers, ['authorization']: `Bearer ${access_token}` } })
+      //   })
+      // }
+      clearLS()
+      accessToken = ''
+      refreshToken = ''
+      return Promise.reject(error)
     }
-    // (error) => {
-    //   const config = error.response?.config || {}
-    //   const { url } = config
-    //   if (url !== 'auth/refresh-token') {
-    //     refreshTokenRequest = refreshTokenRequest
-    //       ? refreshTokenRequest
-    //       : handleRefreshToken().finally(() => {
-    //           refreshTokenRequest = null
-    //         })
-    //     return refreshTokenRequest.then((access_token: string) => {
-    //       return instance({ ...config, headers: { ...config.headers, authorization: `Bearer ${access_token}` } })
-    //     })
-    //   }
-    //   clearLS()
-    //   accessToken = ''
-    //   refreshToken = ''
-    //   return Promise.reject(error)
-    // }
   )
 
   // async function handleRefreshToken(): Promise<string> {
   //   try {
-  //     const response = await instance.post<RefreshTokenResponse>('auth/refresh-token', {
+  //     const response = await instance.post<RefreshTokenResponse>('/auth/refresh-token', {
   //       refreshToken: refreshToken
   //     })
-
   //     if (response.data.statusCode === 200) {
   //       const { accessToken: newAccessToken, refreshToken: newRefreshToken } = response.data.data
   //       setAccesTokenToLS(newAccessToken)
