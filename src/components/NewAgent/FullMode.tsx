@@ -2,35 +2,107 @@ import {
   Accordion,
   AccordionItem,
   Button,
-  Checkbox,
-  Input,
-  Select,
-  SelectItem,
-  Table,
-  TableBody,
-  TableCell,
-  TableColumn,
-  TableHeader,
-  TableRow
+  // Checkbox,
+  Input
+  // Select,
+  // SelectItem,
+  // Table,
+  // TableBody,
+  // TableCell,
+  // TableColumn,
+  // TableHeader,
+  // TableRow
 } from '@nextui-org/react'
-import { useState } from 'react'
-import { animals } from '~/constants/renaral.const'
+import { useContext, useState } from 'react'
+// import { animals } from '~/constants/renaral.const'
 import { EyeFilledIcon, EyeSlashFilledIcon } from '~/pages/MemberInfo/NewAgent'
-import InputMinMax from '../InputMinMax'
+// import InputMinMax from '../InputMinMax'
+import { AppContext } from '~/contexts/app.context'
+import { useMutation } from '@tanstack/react-query'
+import { createUser } from '~/apis/user.api'
 
 const FullMode = () => {
   const [isVisible, setIsVisible] = useState(false)
-
+  const { profile } = useContext(AppContext)
   const toggleVisibility = () => setIsVisible(!isVisible)
+  // const [value, setValue] = useState<string>('cat')
+  // const handleSelectionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  //   setValue(e.target.value)
+  // }
 
-  const [value, setValue] = useState<string>('cat')
+  const [usernameEnd1, setUsernameEnd1] = useState('0')
+  const [usernameEnd2, setUsernameEnd2] = useState('0')
 
-  const handleSelectionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setValue(e.target.value)
+  const [formState, setFormState] = useState({
+    username: (profile?.role === 1 ? 'U4W' : profile?.username) + usernameEnd1 + usernameEnd2,
+    password: '',
+    firstName: '',
+    lastName: '',
+    mobile: '',
+    email: ''
+  })
+  const handleChangeAtMaxIndex = (value: string) => {
+    const username = formState.username
+    const maxLengthIndex = username.length - 2
+
+    const updatedStr = username.slice(0, maxLengthIndex) + value + username.slice(maxLengthIndex + 1)
+
+    setUsernameEnd1(value)
+    setFormState((prevState) => ({
+      ...prevState,
+      username: updatedStr
+    }))
   }
+  const handleChangeMaxIndex = (value: string) => {
+    const username = formState.username
+    const maxLengthIndex = username.length - 1
+
+    const updatedStr = username.slice(0, maxLengthIndex) + value + username.slice(maxLengthIndex + 1)
+    setUsernameEnd2(value)
+    setFormState((prevState) => ({
+      ...prevState,
+      username: updatedStr
+    }))
+  }
+
+  const onChangeValue = (key: keyof typeof formState, value: string) => {
+    setFormState((prevState) => ({
+      ...prevState,
+      [key]: value
+    }))
+  }
+
+  const createAccount = useMutation({
+    mutationFn: (body: {
+      username: string
+      password: string
+      fullName: string
+      email: string
+      mobile: string
+      walletBalance?: number
+    }) => createUser(body),
+    onSuccess: () => {
+      alert('Create Account successfully')
+    },
+    onError: () => {
+      alert('Create Account failed')
+    }
+  })
+  const handleSubmit = () => {
+    const newUser = {
+      username: formState.username,
+      password: formState.password,
+      mobile: formState.mobile,
+      walletBalance: 0,
+      email: formState.email,
+      fullName: formState.firstName + formState.lastName
+    }
+    createAccount.mutate(newUser)
+  }
+
   return (
     <div>
-      <Button className='font-medium rounded mb-5 ml-2' size='sm' color='primary'>
+      <Button onClick={handleSubmit} className='font-medium rounded mb-5 ml-2' size='sm' color='primary'>
         Create Account
       </Button>
 
@@ -44,97 +116,204 @@ const FullMode = () => {
           }
         >
           <div>
-            <p className='font-medium text-sm mb-2'>Account Details</p>
-            <div className='flex flex-wrap gap-x-6 '>
-              <div className='w-full md:w-max'>
-                <p className='mb-1 text-sm'>
-                  Username <span className='text-red-700'>* </span>
-                </p>
-                <div className='flex items-center gap-2'>
-                  <div className='flex items-center border rounded overflow-hidden border-foreground-300'>
-                    <div className='bg-foreground-300 text-sm px-2 py-[5px]'>U4W00</div>
-                    <select className='text-sm px-2 py-[5px] border-r border-foreground-300'>
-                      <option value='0'>0</option>
-                      <option value='1'>1</option>
-                      <option value='2'>2</option>
-                      <option value='3'>3</option>
-                      <option value='4'>4</option>
-                      <option value='5'>5</option>
-                      <option value='6'>6</option>
-                      <option value='7'>7</option>
-                      <option value='8'>8</option>
-                      <option value='9'>9</option>
-                      <option value='a'>a</option>
-                      <option value='b'>b</option>
-                      <option value='c'>c</option>
-                      <option value='d'>d</option>
-                      <option value='e'>e</option>
-                      <option value='f'>f</option>
-                      <option value='g'>g</option>
-                      <option value='h'>h</option>
-                      <option value='i'>i</option>
-                      <option value='j'>j</option>
-                      <option value='k'>k</option>
-                      <option value='l'>l</option>
-                      <option value='m'>m</option>
-                      <option value='n'>n</option>
-                      <option value='o'>o</option>
-                      <option value='p'>p</option>
-                      <option value='q'>q</option>
-                      <option value='r'>r</option>
-                      <option value='s'>s</option>
-                      <option value='t'>t</option>
-                      <option value='u'>u</option>
-                      <option value='v'>v</option>
-                      <option value='w'>w</option>
-                      <option value='x'>x</option>
-                      <option value='y'>y</option>
-                      <option value='z'>z</option>
-                    </select>
-                    <select className='text-sm px-2 py-[5px]'>
-                      <option value='0'>0</option>
-                      <option value='1'>1</option>
-                      <option value='2'>2</option>
-                      <option value='3'>3</option>
-                      <option value='4'>4</option>
-                      <option value='5'>5</option>
-                      <option value='6'>6</option>
-                      <option value='7'>7</option>
-                      <option value='8'>8</option>
-                      <option value='9'>9</option>
-                      <option value='a'>a</option>
-                      <option value='b'>b</option>
-                      <option value='c'>c</option>
-                      <option value='d'>d</option>
-                      <option value='e'>e</option>
-                      <option value='f'>f</option>
-                      <option value='g'>g</option>
-                      <option value='h'>h</option>
-                      <option value='i'>i</option>
-                      <option value='j'>j</option>
-                      <option value='k'>k</option>
-                      <option value='l'>l</option>
-                      <option value='m'>m</option>
-                      <option value='n'>n</option>
-                      <option value='o'>o</option>
-                      <option value='p'>p</option>
-                      <option value='q'>q</option>
-                      <option value='r'>r</option>
-                      <option value='s'>s</option>
-                      <option value='t'>t</option>
-                      <option value='u'>u</option>
-                      <option value='v'>v</option>
-                      <option value='w'>w</option>
-                      <option value='x'>x</option>
-                      <option value='y'>y</option>
-                      <option value='z'>z</option>
-                    </select>
+            <div>
+              <p className='font-medium text-sm mb-2'>Account Details</p>
+              <div className='flex flex-wrap gap-x-6 '>
+                <div className='w-full md:w-max'>
+                  <p className='mb-1 text-sm'>
+                    Username <span className='text-red-700'>* </span>
+                  </p>
+                  <div className='flex items-center gap-2'>
+                    <div className='flex items-center border rounded overflow-hidden border-foreground-300'>
+                      <div className='bg-foreground-300 text-sm px-2 py-[5px]'>
+                        {profile?.role === 1 ? 'U4W' : profile?.username}
+                      </div>
+                      <select
+                        onChange={(e) => handleChangeAtMaxIndex(e.target.value)}
+                        value={usernameEnd1}
+                        className='text-sm px-2 py-[5px] border-r border-foreground-300 bg-background text-foreground'
+                      >
+                        <option value='0'>0</option>
+                        <option value='1'>1</option>
+                        <option value='2'>2</option>
+                        <option value='3'>3</option>
+                        <option value='4'>4</option>
+                        <option value='5'>5</option>
+                        <option value='6'>6</option>
+                        <option value='7'>7</option>
+                        <option value='8'>8</option>
+                        <option value='9'>9</option>
+                        <option value='a'>a</option>
+                        <option value='b'>b</option>
+                        <option value='c'>c</option>
+                        <option value='d'>d</option>
+                        <option value='e'>e</option>
+                        <option value='f'>f</option>
+                        <option value='g'>g</option>
+                        <option value='h'>h</option>
+                        <option value='i'>i</option>
+                        <option value='j'>j</option>
+                        <option value='k'>k</option>
+                        <option value='l'>l</option>
+                        <option value='m'>m</option>
+                        <option value='n'>n</option>
+                        <option value='o'>o</option>
+                        <option value='p'>p</option>
+                        <option value='q'>q</option>
+                        <option value='r'>r</option>
+                        <option value='s'>s</option>
+                        <option value='t'>t</option>
+                        <option value='u'>u</option>
+                        <option value='v'>v</option>
+                        <option value='w'>w</option>
+                        <option value='x'>x</option>
+                        <option value='y'>y</option>
+                        <option value='z'>z</option>
+                      </select>
+                      <select
+                        onChange={(e) => handleChangeMaxIndex(e.target.value)}
+                        value={usernameEnd2}
+                        className='text-sm px-2 py-[5px] bg-background text-foreground'
+                      >
+                        <option value='0'>0</option>
+                        <option value='1'>1</option>
+                        <option value='2'>2</option>
+                        <option value='3'>3</option>
+                        <option value='4'>4</option>
+                        <option value='5'>5</option>
+                        <option value='6'>6</option>
+                        <option value='7'>7</option>
+                        <option value='8'>8</option>
+                        <option value='9'>9</option>
+                        <option value='a'>a</option>
+                        <option value='b'>b</option>
+                        <option value='c'>c</option>
+                        <option value='d'>d</option>
+                        <option value='e'>e</option>
+                        <option value='f'>f</option>
+                        <option value='g'>g</option>
+                        <option value='h'>h</option>
+                        <option value='i'>i</option>
+                        <option value='j'>j</option>
+                        <option value='k'>k</option>
+                        <option value='l'>l</option>
+                        <option value='m'>m</option>
+                        <option value='n'>n</option>
+                        <option value='o'>o</option>
+                        <option value='p'>p</option>
+                        <option value='q'>q</option>
+                        <option value='r'>r</option>
+                        <option value='s'>s</option>
+                        <option value='t'>t</option>
+                        <option value='u'>u</option>
+                        <option value='v'>v</option>
+                        <option value='w'>w</option>
+                        <option value='x'>x</option>
+                        <option value='y'>y</option>
+                        <option value='z'>z</option>
+                      </select>
+                    </div>
+                    <svg
+                      xmlns='http://www.w3.org/2000/svg'
+                      viewBox='0 0 24 24'
+                      fill='currentColor'
+                      className='size-6 text-green-600'
+                    >
+                      <path
+                        fillRule='evenodd'
+                        d='M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z'
+                        clipRule='evenodd'
+                      />
+                    </svg>
                   </div>
+                </div>
+                <div className='w-full md:w-max'>
+                  <p className='mb-1 text-sm'>
+                    Password <span className='text-red-700'>* </span>
+                  </p>
+                  <Input
+                    variant='bordered'
+                    size='sm'
+                    placeholder='Enter your password'
+                    value={formState.password}
+                    onChange={(e) => onChangeValue('password', e.target.value)}
+                    endContent={
+                      <button
+                        className='focus:outline-none'
+                        type='button'
+                        onClick={toggleVisibility}
+                        aria-label='toggle password visibility'
+                      >
+                        {isVisible ? (
+                          <EyeSlashFilledIcon className='text-2xl text-default-400 pointer-events-none' />
+                        ) : (
+                          <EyeFilledIcon className='text-2xl text-default-400 pointer-events-none' />
+                        )}
+                      </button>
+                    }
+                    type={isVisible ? 'text' : 'password'}
+                    className='max-w-xs'
+                    name='password'
+                  />
+                </div>
+                <div className='w-full md:w-max flex items-center gap-x-2'>
+                  <Input
+                    variant='bordered'
+                    size='sm'
+                    label={
+                      <p className=' text-sm'>
+                        Agent Max Credit <span className='text-red-700'>* </span>
+                      </p>
+                    }
+                    labelPlacement='outside'
+                    placeholder=' '
+                    description={
+                      <div className='text-xs'>
+                        Min: <span className='font-medium text-foreground'>0</span> - Max:{' '}
+                        <span className='font-medium text-foreground'>0</span>
+                      </div>
+                    }
+                    className='max-w-xs'
+                    name='agentMaxCredit'
+                  />
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
                     viewBox='0 0 24 24'
                     fill='currentColor'
-                    className='size-6 text-green-600'
+                    className='size-6 text-green-600 inline-block'
+                  >
+                    <path
+                      fillRule='evenodd'
+                      d='M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z'
+                      clipRule='evenodd'
+                    />
+                  </svg>
+                </div>
+                <div className='w-full md:w-max flex items-center gap-x-2'>
+                  <Input
+                    variant='bordered'
+                    size='sm'
+                    label={
+                      <p className=' text-sm'>
+                        Member Max Credit <span className='text-red-700'>* </span>
+                      </p>
+                    }
+                    labelPlacement='outside'
+                    placeholder=' '
+                    description={
+                      <div className='text-xs'>
+                        Min: <span className='font-medium text-foreground'>0</span> - Max:{' '}
+                        <span className='font-medium text-foreground'>0</span>
+                      </div>
+                    }
+                    className='max-w-xs'
+                    name='memberMaxCredit'
+                  />
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    viewBox='0 0 24 24'
+                    fill='currentColor'
+                    className='size-6 text-green-600 inline-block'
                   >
                     <path
                       fillRule='evenodd'
@@ -144,145 +323,68 @@ const FullMode = () => {
                   </svg>
                 </div>
               </div>
-              <div className='w-full md:w-max'>
-                <p className='mb-1 text-sm'>
-                  Password <span className='text-red-700'>* </span>
-                </p>
-                <Input
-                  variant='bordered'
-                  size='sm'
-                  placeholder='Enter your password'
-                  endContent={
-                    <button
-                      className='focus:outline-none'
-                      type='button'
-                      onClick={toggleVisibility}
-                      aria-label='toggle password visibility'
-                    >
-                      {isVisible ? (
-                        <EyeSlashFilledIcon className='text-2xl text-default-400 pointer-events-none' />
-                      ) : (
-                        <EyeFilledIcon className='text-2xl text-default-400 pointer-events-none' />
-                      )}
-                    </button>
-                  }
-                  type={isVisible ? 'text' : 'password'}
-                  className='max-w-xs'
-                />
-              </div>
-              <div className='w-full md:w-max flex items-center gap-x-2'>
-                <Input
-                  variant='bordered'
-                  size='sm'
-                  label={
-                    <p className=' text-sm'>
-                      Agent Max Credit <span className='text-red-700'>* </span>
-                    </p>
-                  }
-                  labelPlacement='outside'
-                  placeholder=' '
-                  description={
-                    <div className='text-xs'>
-                      Min: <span className='font-medium text-foreground'>0</span> - Max:{' '}
-                      <span className='font-medium text-foreground'>0</span>
-                    </div>
-                  }
-                  className='max-w-xs'
-                />
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  viewBox='0 0 24 24'
-                  fill='currentColor'
-                  className='size-6 text-green-600 inline-block'
-                >
-                  <path
-                    fillRule='evenodd'
-                    d='M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z'
-                    clipRule='evenodd'
-                  />
-                </svg>
-              </div>
-              <div className='w-full md:w-max flex items-center gap-x-2'>
-                <Input
-                  variant='bordered'
-                  size='sm'
-                  label={
-                    <p className=' text-sm'>
-                      Member Max Credit <span className='text-red-700'>* </span>
-                    </p>
-                  }
-                  labelPlacement='outside'
-                  placeholder=' '
-                  description={
-                    <div className='text-xs'>
-                      Min: <span className='font-medium text-foreground'>0</span> - Max:{' '}
-                      <span className='font-medium text-foreground'>0</span>
-                    </div>
-                  }
-                  className='max-w-xs'
-                />
-                <svg
-                  xmlns='http://www.w3.org/2000/svg'
-                  viewBox='0 0 24 24'
-                  fill='currentColor'
-                  className='size-6 text-green-600 inline-block'
-                >
-                  <path
-                    fillRule='evenodd'
-                    d='M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z'
-                    clipRule='evenodd'
-                  />
-                </svg>
-              </div>
-            </div>
 
-            <p className='font-medium text-sm mb-3'>User Information</p>
+              <p className='font-medium text-sm mb-3'>User Information</p>
 
-            <div className='flex flex-wrap gap-3 mb-4'>
-              <Input
-                variant='bordered'
-                size='sm'
-                label={<p className=' text-sm'>First Name</p>}
-                placeholder=' '
-                labelPlacement='outside'
-                className='max-w-xs md:max-w-52'
-              />
-              <Input
-                variant='bordered'
-                size='sm'
-                label={<p className=' text-sm'>Last Name</p>}
-                placeholder=' '
-                labelPlacement='outside'
-                className='max-w-xs md:max-w-52'
-              />
-              <Input
-                variant='bordered'
-                size='sm'
-                label={<p className=' text-sm'>Phone</p>}
-                placeholder=' '
-                labelPlacement='outside'
-                className='max-w-xs md:max-w-52'
-              />
-              <Input
-                variant='bordered'
-                size='sm'
-                label={<p className=' text-sm'>Mobile Phone</p>}
-                placeholder=' '
-                labelPlacement='outside'
-                className='max-w-xs md:max-w-52'
-              />
-              <Input
-                variant='bordered'
-                size='sm'
-                label={<p className=' text-sm'>Fax</p>}
-                placeholder=' '
-                labelPlacement='outside'
-                className='max-w-xs md:max-w-52'
-              />
+              <div className='flex flex-wrap gap-3 mb-4'>
+                <Input
+                  variant='bordered'
+                  size='sm'
+                  value={formState.firstName}
+                  onChange={(e) => onChangeValue('firstName', e.target.value)}
+                  label={<p className=' text-sm'>First Name</p>}
+                  placeholder=' '
+                  labelPlacement='outside'
+                  className='max-w-xs md:max-w-52'
+                  name='firstName'
+                />
+                <Input
+                  variant='bordered'
+                  size='sm'
+                  label={<p className=' text-sm'>Last Name</p>}
+                  placeholder=' '
+                  value={formState.lastName}
+                  onChange={(e) => onChangeValue('lastName', e.target.value)}
+                  labelPlacement='outside'
+                  className='max-w-xs md:max-w-52'
+                  name='lastName'
+                />
+                <Input
+                  variant='bordered'
+                  size='sm'
+                  label={<p className=' text-sm'>Email</p>}
+                  value={formState.email}
+                  onChange={(e) => onChangeValue('email', e.target.value)}
+                  placeholder=' '
+                  labelPlacement='outside'
+                  className='max-w-xs md:max-w-52'
+                  name='email'
+                />
+                <Input
+                  variant='bordered'
+                  size='sm'
+                  value={formState.mobile}
+                  onChange={(e) => onChangeValue('mobile', e.target.value)}
+                  label={<p className=' text-sm'>Mobile Phone</p>}
+                  placeholder=' '
+                  labelPlacement='outside'
+                  className='max-w-xs md:max-w-52'
+                  name='mobilePhone'
+                />
+                <Input
+                  variant='bordered'
+                  size='sm'
+                  label={<p className=' text-sm'>Fax</p>}
+                  placeholder=' '
+                  labelPlacement='outside'
+                  className='max-w-xs md:max-w-52'
+                  name='fax'
+                />
+              </div>
             </div>
           </div>
         </AccordionItem>
-        <AccordionItem
+        {/* <AccordionItem
           className='rounded bg-foreground-50 dark:bg-foreground-100'
           key='2'
           aria-label='Accordion 2'
@@ -377,8 +479,8 @@ const FullMode = () => {
         </AccordionItem>
         <AccordionItem
           className='rounded bg-foreground-50 dark:bg-foreground-100'
-          key='2'
-          aria-label='Accordion 2'
+          key='3'
+          aria-label='Accordion 3'
           title={
             <div className='py-2 uppercase text-sm font-medium border-b border-foreground-200'>General Information</div>
           }
@@ -840,7 +942,7 @@ Max Payout Per Match'
               </TableBody>
             </Table>
           </div>
-        </AccordionItem>
+        </AccordionItem> */}
       </Accordion>
       <Button className='font-medium rounded mt-5 ml-2' size='sm' color='primary'>
         Create Account

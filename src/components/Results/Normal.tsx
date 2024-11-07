@@ -48,7 +48,7 @@ const Normal = () => {
       <div className='w-full overflow-auto text-xs '>
         <table className='table-auto w-full border-collapse mt-4'>
           <thead>
-            <tr className='bg-foreground-500 text-white'>
+            <tr className='bg-foreground/90 text-white'>
               <th className='py-2 text-center border border-foreground-400'>Kick Off. Time</th>
               <th className='py-2 text-center border border-foreground-400'>Match</th>
               <th className='py-2 text-center border border-foreground-400'>1Q</th>
@@ -65,7 +65,7 @@ const Normal = () => {
             <tr>
               <td
                 colSpan={20}
-                className='py-2 text-center bg-orange-50 dark:bg-orange-900  border border-foreground-400'
+                className='py-2 text-center bg-foreground/10 dark:bg-foreground/20 border border-foreground-400'
               >
                 <strong>NCAA Football</strong>
               </td>
@@ -74,7 +74,7 @@ const Normal = () => {
               .fill(0)
               .map((_, index) => (
                 <Fragment key={index}>
-                  <tr>
+                  <tr className='bg-background'>
                     <td rowSpan={2} className={`py-2 text-center border border-foreground-400`}>
                       <div className='flex flex-col'>
                         <span>09/21/2024</span>
@@ -109,7 +109,7 @@ const Normal = () => {
                       Completed
                     </td>
                   </tr>
-                  <tr className='bg-foreground-200'>
+                  <tr className='bg-foreground/5 dark:bg-foreground/10'>
                     <td rowSpan={1} className={`py-2 text-center border border-foreground-400`}>
                       <span className='font-medium text-red-500'>Ball State Cardinals</span>
                     </td>

@@ -4,18 +4,27 @@ import { Accordion, AccordionItem, Avatar, Button, Input } from '@nextui-org/rea
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { menuCMS } from '~/constants/renaral.const'
 import { Tabs, Tab } from '@nextui-org/react'
-import { useContext } from 'react'
+import { useContext, memo, useState, useEffect } from 'react'
 import { AppContext } from '~/contexts/app.context'
-const SideBar = ({ isShow }: { isShow: boolean }) => {
-  const { isSecurity ,profile} = useContext(AppContext)
+
+const SideBar = memo(({ isShow }: { isShow: boolean }) => {
+  const { isSecurity, profile } = useContext(AppContext)
   const location = useLocation().pathname
   const navigate = useNavigate()
+  const [openAccordions, setOpenAccordions] = useState<Set<string>>(() => {
+    const saved = localStorage.getItem('openAccordions')
+    return new Set(saved ? JSON.parse(saved) : [])
+  })
+
+  useEffect(() => {
+    localStorage.setItem('openAccordions', JSON.stringify(Array.from(openAccordions)))
+  }, [openAccordions])
+
   return (
     <div
       style={{ zIndex: 21 }}
-      className={`${
-        isShow ? '' : ' overflow-hidden  opacity-0 invisible -translate-x-full '
-      }  no-scrollbar border-r border-foreground-100 fixed  left-0 overflow-auto h-screen  transition-all  `}
+      className={`${isShow ? '' : ' overflow-hidden  opacity-0 invisible -translate-x-full '
+        }  no-scrollbar border-r border-foreground-100 fixed  left-0 overflow-auto h-screen  transition-all  `}
     >
       <div className={`w-[264px] py-4 h-full bg-background  overflow-hidden transition-all `}>
         <div className='px-2 flex py-2 gap-x-4 items-center'>
@@ -47,20 +56,22 @@ const SideBar = ({ isShow }: { isShow: boolean }) => {
                         )}
                       </Link>
                     ) : (
-                      <Accordion className='!px-0'>
+                      <Accordion
+                        className='!px-0'
+                        selectedKeys={openAccordions}
+                        onSelectionChange={(keys) => setOpenAccordions(keys as Set<string>)}
+                      >
                         <AccordionItem
-                          className='!py-2 rounded px-2 '
-                          key='theme'
-                          aria-label='Theme'
+                          key={item.title}
+                          aria-label={item.title}
+                          className='!py-2 rounded px-2'
                           title={<div className='text-sm uppercase'>{item.title}</div>}
                           startContent={item.icon}
                         >
                           <div className='space-y-2 pl-5'>
                             {item.subMenu?.map((itemx, indexx) => (
                               <Link
-                                className={`${
-                                  location === itemx.path && 'text-blue-500'
-                                } block hover:text-foreground-500`}
+                                className={`${location === itemx.path && 'text-blue-500'} block hover:text-foreground-500`}
                                 key={indexx}
                                 to={itemx.path}
                               >
@@ -101,10 +112,10 @@ const SideBar = ({ isShow }: { isShow: boolean }) => {
                   onClick={() => {
                     isSecurity
                       ? navigate('/profile', {
-                          state: {
-                            tabValue: 'otp'
-                          }
-                        })
+                        state: {
+                          tabValue: 'otp'
+                        }
+                      })
                       : navigate('/security-code')
                   }}
                   variant='light'
@@ -169,8 +180,9 @@ const SideBar = ({ isShow }: { isShow: boolean }) => {
       </div>
     </div>
   )
-}
-export const SearchIcon = (props: any) => (
+})
+
+export const SearchIcon = memo((props: any) => (
   <svg
     aria-hidden='true'
     fill='none'
@@ -190,19 +202,9 @@ export const SearchIcon = (props: any) => (
     />
     <path d='M22 22L20 20' stroke='currentColor' strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' />
   </svg>
-)
-// function Icon({ id, open }: any) {
-//   return (
-//     <svg
-//       xmlns='http://www.w3.org/2000/svg'
-//       fill='none'
-//       viewBox='0 0 24 24'
-//       strokeWidth={2}
-//       stroke='currentColor'
-//       className={`${id === open ? 'rotate-180' : ''} h-3 w-3 transition-transform`}
-//     >
-//       <path strokeLinecap='round' strokeLinejoin='round' d='M19.5 8.25l-7.5 7.5-7.5-7.5' />
-//     </svg>
-//   )
-// }
+))
+
+SearchIcon.displayName = 'SearchIcon'
+SideBar.displayName = 'SideBar'
+
 export default SideBar

@@ -3,6 +3,9 @@ import { ResponseApi } from './utils.type'
 
 export interface Profile {
   accountStatus: number
+  password?: string
+  firstName?: string
+  lastName?: string
   avt: string | null
   createdAt: string
   email: string
