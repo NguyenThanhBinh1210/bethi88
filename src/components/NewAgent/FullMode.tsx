@@ -2,21 +2,21 @@ import {
   Accordion,
   AccordionItem,
   Button,
-  // Checkbox,
-  Input
-  // Select,
-  // SelectItem,
-  // Table,
-  // TableBody,
-  // TableCell,
-  // TableColumn,
-  // TableHeader,
-  // TableRow
+  Checkbox,
+  Input,
+  Select,
+  SelectItem,
+  Table,
+  TableBody,
+  TableCell,
+  TableColumn,
+  TableHeader,
+  TableRow
 } from '@nextui-org/react'
 import { useContext, useState } from 'react'
-// import { animals } from '~/constants/renaral.const'
+import { animals } from '~/constants/renaral.const'
 import { EyeFilledIcon, EyeSlashFilledIcon } from '~/pages/MemberInfo/NewAgent'
-// import InputMinMax from '../InputMinMax'
+import InputMinMax from '../InputMinMax'
 import { AppContext } from '~/contexts/app.context'
 import { useMutation } from '@tanstack/react-query'
 import { createUser } from '~/apis/user.api'
@@ -25,10 +25,10 @@ const FullMode = () => {
   const [isVisible, setIsVisible] = useState(false)
   const { profile } = useContext(AppContext)
   const toggleVisibility = () => setIsVisible(!isVisible)
-  // const [value, setValue] = useState<string>('cat')
-  // const handleSelectionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-  //   setValue(e.target.value)
-  // }
+  const [value, setValue] = useState<string>('cat')
+  const handleSelectionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setValue(e.target.value)
+  }
 
   const [usernameEnd1, setUsernameEnd1] = useState('0')
   const [usernameEnd2, setUsernameEnd2] = useState('0')
@@ -384,7 +384,7 @@ const FullMode = () => {
             </div>
           </div>
         </AccordionItem>
-        {/* <AccordionItem
+        <AccordionItem
           className='rounded bg-foreground-50 dark:bg-foreground-100'
           key='2'
           aria-label='Accordion 2'
@@ -942,7 +942,7 @@ Max Payout Per Match'
               </TableBody>
             </Table>
           </div>
-        </AccordionItem> */}
+        </AccordionItem>
       </Accordion>
       <Button className='font-medium rounded mt-5 ml-2' size='sm' color='primary'>
         Create Account
