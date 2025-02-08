@@ -52,3 +52,9 @@ export interface RefreshTokenResponse {
   data: TokenInfo
   statusCode: number
 }
+
+export interface LogoutResponse {
+  message?: string
+  statusCode: number
+  success: boolean
+}

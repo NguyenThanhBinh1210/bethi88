@@ -11,24 +11,31 @@ import {
   Textarea,
   useDisclosure
 } from '@nextui-org/react'
+import { useMutation } from '@tanstack/react-query'
 import { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { logoutAccount } from '~/apis/auth.api'
 import BaseModal from '~/components/modals/BaseModal'
 import { AppContext } from '~/contexts/app.context'
 import { Profile } from '~/types/auth.type'
-import { clearLS, setDarkModeFromLS, setProfileFromLS } from '~/utils/auth'
+import { clearLS, getRefreshTokenFromLS, setDarkModeFromLS, setProfileFromLS } from '~/utils/auth'
 
 const TopBar = ({ onShow }: { onShow: () => void }) => {
   const { isDark, setDark, isSecurity } = useContext(AppContext)
   const navigate = useNavigate()
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
   const [isInvisible] = useState<boolean>(false)
+  const logoutMutation = useMutation({
+    mutationFn: () => logoutAccount({ refreshToken: getRefreshTokenFromLS() }),
+    onSuccess: () => {
+      alert('Logout successfully')
+      clearLS()
+      setProfileFromLS({} as Profile)
+      navigate('/login')
+    }
+  })
   const handleLogout = () => {
-    clearLS()
-    setProfileFromLS({} as Profile)
-    alert('Logout successfully')
-    window.location.href = '/login'
-
+    logoutMutation.mutate()
   }
   return (
     <>
