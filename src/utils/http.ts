@@ -5,7 +5,8 @@ import {
   getRefreshTokenFromLS,
   setAccesTokenToLS,
   setProfileFromLS,
-  setRefreshTokenToLS
+  setRefreshTokenToLS,
+  setWalletFromLS
 } from './auth'
 import { LoginResponse } from '~/types/auth.type'
 
@@ -15,7 +16,7 @@ function createHttp(): AxiosInstance {
   // let refreshTokenRequest: Promise<string> | null = null
 
   const instance = axios.create({
-    baseURL: 'http://bong88-stg-api.nccdmm.fun/api/',
+    baseURL: 'http://127.0.0.1:6677/api/',
     timeout: 10000,
     headers: {
       'Content-Type': 'application/json'
@@ -41,10 +42,14 @@ function createHttp(): AxiosInstance {
       if (url === '/auth/login') {
         const loginResponse = response.data as LoginResponse
         const dataProfile = loginResponse.data.userInfos
+        const dataWallet = loginResponse.data.wallets
+
         accessToken = loginResponse.data.tokenInfos.accessToken
         refreshToken = loginResponse.data.tokenInfos.refreshToken
         if (loginResponse.statusCode === 200) {
           setProfileFromLS(dataProfile)
+          setWalletFromLS(dataWallet)
+
           setAccesTokenToLS(accessToken)
           setRefreshTokenToLS(refreshToken)
           window.location.href = '/'
@@ -57,7 +62,7 @@ function createHttp(): AxiosInstance {
       return response
     },
     (error) => {
-      alert('Phiên đăng nhập hết hạn')
+      // alert('Phiên đăng nhập hết hạn')
       // const config = error.response?.config || {}
       // const { url } = config
       // if (url !== '/auth/refresh-token') {
@@ -72,7 +77,7 @@ function createHttp(): AxiosInstance {
       //     return instance({ ...config, headers: { ...config.headers, ['authorization']: `Bearer ${access_token}` } })
       //   })
       // }
-      clearLS()
+      // clearLS()
       accessToken = ''
       refreshToken = ''
       return Promise.reject(error)

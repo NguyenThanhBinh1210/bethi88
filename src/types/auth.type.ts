@@ -19,9 +19,15 @@ export interface Profile {
   walletBalance: number
   _id: string
 }
-
+export interface Wallet {
+  username: string
+  balance: number
+  _id: string
+}
 export type AuthResponse = ResponseApi<{
   userInfos?: Profile
+  wallets?: Profile
+
   tokenInfos?: {
     accessToken: string
     refreshToken: string
@@ -36,6 +42,7 @@ interface TokenInfo {
 export interface LoginResponse {
   data: {
     userInfos: Profile
+    wallets: Wallet
     tokenInfos: TokenInfo
   }
   statusCode: number
